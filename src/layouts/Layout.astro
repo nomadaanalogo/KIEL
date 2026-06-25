@@ -27,11 +27,11 @@ const canonicalURL = new URL(currentPath, SITE_URL).href;
 const ogImageURL = new URL(ogImage, SITE_URL).href;
 const fullTitle = currentPath === '/' ? 'Kiel | Mobiliario Corporativo, Educativo y Carpintería en Cali y Palmira' : `${title} | Kiel`;
 
-const WA_NUMBER = '573000000000';
+const WA_NUMBER = '573174396729';
 const WA_MENSAJE = encodeURIComponent('Hola, quiero cotizar un proyecto con Kiel.');
 const WA_HREF = `https://wa.me/${WA_NUMBER}?text=${WA_MENSAJE}`;
-const TEL = '+57 300 000 0000';
-const TEL_HREF = 'tel:+573000000000';
+const TEL = '+57 317 439 6729';
+const TEL_HREF = 'tel:+573174396729';
 
 const navLinks = [
   {
@@ -106,11 +106,12 @@ const navLinks = [
       "name": "Kiel",
       "description": "Fabricante colombiano de mobiliario corporativo, educativo e institucional. Diseño, producción e instalación de espacios en Cali, Palmira y todo Colombia.",
       "url": SITE_URL,
-      "telephone": "+573000000000",
-      "email": "info@kiel.com.co",
+      "telephone": "+573174396729",
+      "email": "ventas@kiel.com.co",
       "foundingDate": "1996",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Calle 42 #49-541 int Lote 01",
         "addressLocality": "Palmira",
         "addressRegion": "Valle del Cauca",
         "addressCountry": "CO"
@@ -292,24 +293,23 @@ const navLinks = [
             <h4 class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Contacto</h4>
             <ul class="space-y-2.5 text-slate-400 text-sm">
               <li><a href={TEL_HREF} class="hover:text-white transition-colors">{TEL}</a></li>
-              <li><a href="mailto:info@kiel.com.co" class="hover:text-white transition-colors">info@kiel.com.co</a></li>
-              <li>Cali, Colombia</li>
+              <li><a href="mailto:ventas@kiel.com.co" class="hover:text-white transition-colors">ventas@kiel.com.co</a></li>
+              <li class="leading-snug text-slate-500">Calle 42 #49-541 int Lote 01<br/>Palmira, Valle del Cauca</li>
             </ul>
           </div>
         </div>
 
         <!-- Google Maps -->
         <div class="mt-12 rounded-xl overflow-hidden border border-slate-800 h-48">
-          <!-- Reemplaza el src con tu enlace de Google Maps → Maps > Compartir > Incorporar mapa -->
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d254508.38716318!2d-76.65185!3d3.4516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a6f0e3e3e3e3%3A0x0!2sCali%2C+Colombia!5e0!3m2!1ses!2sco!4v1234567890"
+            src="https://maps.google.com/maps?q=3.533216,-76.32052&z=15&output=embed"
             width="100%"
             height="100%"
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="Ubicación Kiel en Cali"
+            title="Kiel S.A.S. — Calle 42 #49-541 Palmira, Valle del Cauca"
           ></iframe>
         </div>
 
