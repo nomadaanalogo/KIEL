@@ -1,0 +1,271 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const WA = `https://wa.me/573000000000?text=${encodeURIComponent('Hola, quiero hablar sobre un proyecto con Kiel.')}`;
+
+const manifiesto = [
+  {
+    frase: 'Creemos que los espacios pueden transformar la forma en que las personas trabajan y aprenden.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" /></svg>`,
+  },
+  {
+    frase: 'Fabricamos con precisión, porque los detalles sí importan.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75" /></svg>`,
+  },
+  {
+    frase: 'Nos involucramos en cada proyecto como si fuera propio.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>`,
+  },
+  {
+    frase: 'Combinamos experiencia, tecnología y oficio.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" /></svg>`,
+  },
+  {
+    frase: 'Nos apasiona convertir ideas en espacios reales.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" /></svg>`,
+  },
+  {
+    frase: 'Trabajamos para que cada espacio funcione tan bien como se ve.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" /></svg>`,
+  },
+];
+
+const diferenciales = [
+  {
+    titulo: 'Más de 28 años',
+    desc: 'La experiencia de cientos de proyectos nos permite entender cada cliente y encontrar soluciones que realmente funcionan.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+  },
+  {
+    titulo: 'Fabricación propia',
+    desc: 'Planta de producción y maquinaria especializada para desarrollar proyectos a la medida con altos estándares de calidad.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>`,
+  },
+  {
+    titulo: 'Soluciones a la medida',
+    desc: 'Cada espacio tiene necesidades propias. Diseñamos proyectos adaptados a cada organización, sector y usuario.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
+  },
+  {
+    titulo: 'Sector corporativo y educativo',
+    desc: 'Hemos trabajado con empresas, colegios, universidades e instituciones que exigen espacios funcionales y duraderos.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>`,
+  },
+  {
+    titulo: 'Proceso completo',
+    desc: 'Diseñamos, fabricamos e instalamos. Controlamos cada etapa para garantizar calidad y cumplimiento.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>`,
+  },
+  {
+    titulo: 'Acompañamiento cercano',
+    desc: 'Trabajamos de la mano desde la idea inicial hasta la instalación final. Respondemos de inmediato.',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>`,
+  },
+];
+---
+
+<Layout
+  title="Nosotros — Fabricante de Mobiliario en Cali y Palmira desde 1996"
+  description="Más de 28 años diseñando y fabricando mobiliario corporativo, educativo e institucional en Colombia. Planta propia en Palmira, Valle del Cauca. Conoce a Kiel."
+>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section class="relative overflow-hidden flex items-end" style="min-height: 82vh">
+    <img
+      src="/nosotros/hero-nosotros2.jpg"
+      alt="Espacio corporativo Kiel"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(2,8,22,0.95) 0%,rgba(2,8,22,0.6) 45%,rgba(2,8,22,0.1) 100%)"></div>
+
+    <div class="relative z-10 w-full">
+      <div class="max-w-7xl mx-auto px-6 sm:px-10 pb-20 pt-44">
+        <div class="flex items-center gap-4 mb-7">
+          <div class="w-8 h-px bg-kiel-orange"></div>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange">Quiénes somos</p>
+        </div>
+        <h1 class="font-serif text-2xl sm:text-4xl lg:text-5xl text-white leading-[1.2] mb-6 max-w-3xl">
+          En Kiel diseñamos y fabricamos soluciones integrales para cada espacio
+        </h1>
+        <p class="text-white/60 text-base sm:text-xl leading-relaxed max-w-2xl">
+          Diseño, fabricación e instalación para empresas, colegios y organizaciones que buscan espacios que funcionen mejor. Que exigen calidad en cada detalle.
+        </p>
+      </div>
+
+      <!-- Stats pegados al borde inferior del hero -->
+      <div class="bg-white/8 backdrop-blur-sm border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 sm:px-10 grid grid-cols-2 sm:grid-cols-4 sm:divide-x divide-white/10">
+          {[
+            {
+              label: '28 años de trayectoria',
+              icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+            },
+            {
+              label: '+200 proyectos entregados',
+              icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
+            },
+            {
+              label: '100% fabricación propia',
+              icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>`,
+            },
+            {
+              label: 'Palmira, Valle del Cauca',
+              icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>`,
+            },
+          ].map((s, i) => (
+            <div class={`flex items-center gap-3 py-5 px-4 sm:px-6 ${i < 2 ? 'border-b border-white/10 sm:border-b-0' : ''}`}>
+              <span class="text-kiel-orange shrink-0">
+                <Fragment set:html={s.icon} />
+              </span>
+              <p class="text-white/80 text-xs sm:text-sm leading-tight">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ASÍ SOMOS
+  ══════════════════════════════════════ -->
+  <section class="bg-white py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10">
+
+      <!-- Cabecera -->
+      <div class="mb-12">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange mb-4">Nuestra esencia</p>
+        <h2 class="font-serif text-5xl sm:text-6xl text-slate-900 leading-tight">Así somos</h2>
+      </div>
+
+      <!-- Frases con ícono y línea naranja divisora -->
+      <div>
+        {manifiesto.map((item, i) => (
+          <div>
+            {i > 0 && (
+              <div class="h-px" style="background: linear-gradient(to right, #EE9200 0%, #EE920025 50%, transparent 100%)"></div>
+            )}
+            <div class="flex items-center gap-4 py-4">
+              <div class="text-kiel-orange shrink-0 -rotate-12 [&>svg]:w-7 [&>svg]:h-7">
+                <Fragment set:html={item.icon} />
+              </div>
+              <p class="font-serif text-lg sm:text-xl text-slate-800 leading-snug">
+                {item.frase}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TIRA DE IMÁGENES
+  ══════════════════════════════════════ -->
+  <div class="grid grid-cols-3 h-36 sm:h-56 lg:h-72">
+    {[
+      { src: '/nosotros/equipo.jpg',       alt: 'Equipo Kiel' },
+      { src: '/servicios/carpinteria.jpg', alt: 'Fabricación de precisión' },
+      { src: '/nosotros/instalacion.jpg',  alt: 'Instalación en sitio' },
+    ].map(img => (
+      <div class="overflow-hidden">
+        <img
+          src={img.src}
+          alt={img.alt}
+          class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+          loading="lazy"
+        />
+      </div>
+    ))}
+  </div>
+
+  <!-- ══════════════════════════════════════
+       ¿POR QUÉ KIEL?
+  ══════════════════════════════════════ -->
+  <section class="bg-gray-100 py-24 sm:py-32">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10">
+
+      <!-- Cabecera -->
+      <div class="mb-16">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange mb-4">Nuestros diferenciales</p>
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-slate-900 leading-tight">¿Por qué Kiel?</h2>
+          <p class="text-slate-400 text-sm sm:text-base sm:max-w-xs leading-relaxed">
+            28 años, planta propia y un proceso completo del diseño a la instalación.
+          </p>
+        </div>
+      </div>
+
+      <!-- Grid de diferenciales -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
+        {diferenciales.map((d) => (
+          <div class="group border-t-2 border-slate-300 hover:border-kiel-orange pt-8 pb-10 transition-colors duration-300">
+            <div class="text-kiel-orange mb-5 [&>svg]:w-8 [&>svg]:h-8">
+              <Fragment set:html={d.icon} />
+            </div>
+            <h3 class="text-slate-900 font-semibold text-base mb-3 leading-snug">{d.titulo}</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">{d.desc}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       VIDEO
+  ══════════════════════════════════════ -->
+  <section class="bg-slate-950 py-24 sm:py-28">
+    <div class="max-w-6xl mx-auto px-6 sm:px-10">
+      <div class="grid lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-20 items-center">
+
+        <div>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange mb-5">Conócenos</p>
+          <h2 class="font-serif text-4xl sm:text-5xl text-white leading-tight">
+            28 años construyendo espacios que funcionan
+          </h2>
+        </div>
+
+        <div class="relative rounded-xl overflow-hidden shadow-2xl w-full aspect-video">
+          <iframe
+            src="https://www.youtube.com/embed/3i-k3n9uHJI?rel=0&modestbranding=1"
+            title="Kiel Colombia — Video empresarial"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            class="absolute inset-0 w-full h-full border-0"
+            loading="lazy"
+          ></iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CTA
+  ══════════════════════════════════════ -->
+  <section class="bg-kiel-blue py-24 sm:py-28">
+    <div class="max-w-2xl mx-auto px-6 sm:px-10 text-center">
+      <h2 class="font-serif text-4xl sm:text-5xl text-white mb-6 leading-tight">
+        Transformemos tu idea en un espacio que funcione
+      </h2>
+      <p class="text-blue-100/70 text-lg mb-10">
+        28 años de experiencia al servicio de tu proyecto.
+      </p>
+      <a
+        href={WA}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-3 bg-white text-kiel-blue font-bold text-sm px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-xl"
+      >
+        <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        Hablemos de tu proyecto
+      </a>
+    </div>
+  </section>
+
+</Layout>

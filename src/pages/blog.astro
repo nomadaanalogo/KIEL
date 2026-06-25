@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const posts = [
+  {
+    slug: '#',
+    categoria: 'Espacios corporativos',
+    titulo: 'Cómo elegir el mobiliario correcto para tu oficina',
+    resumen: 'El mobiliario de una oficina no es solo estética: impacta directamente en la productividad, la salud postural y la imagen que proyecta tu empresa. Te contamos qué factores considerar antes de tomar la decisión.',
+    fecha: 'Junio 10, 2025',
+    tiempo: '4 min de lectura',
+    imagen: '/nosotros/reunion.jpg',
+    color: '#0065AD',
+  },
+  {
+    slug: '#',
+    categoria: 'Espacios educativos',
+    titulo: 'Tendencias en diseño de espacios educativos para 2025',
+    resumen: 'Los colegios y universidades están rediseñando sus aulas para adaptarse a nuevas formas de aprendizaje. Flexibilidad, colaboración y bienestar son los pilares que guían los proyectos más innovadores.',
+    fecha: 'Mayo 22, 2025',
+    tiempo: '5 min de lectura',
+    imagen: '/hero/colegio.jpg',
+    color: '#059669',
+  },
+  {
+    slug: '#',
+    categoria: 'Carpintería arquitectónica',
+    titulo: 'Carpintería arquitectónica: qué es y por qué marca la diferencia',
+    resumen: 'No toda la madera es igual ni todo carpintero es arquitectónico. Explicamos qué distingue la carpintería arquitectónica del mobiliario estándar y por qué cada vez más proyectos la incluyen como elemento clave.',
+    fecha: 'Abril 8, 2025',
+    tiempo: '6 min de lectura',
+    imagen: '/nosotros/tecnologia.jpg',
+    color: '#92400E',
+  },
+];
+---
+
+<Layout
+  title="Blog de Diseño de Espacios, Mobiliario y Arquitectura de Interiores"
+  description="Artículos sobre tendencias en mobiliario corporativo, diseño de espacios educativos, carpintería arquitectónica y adecuación de oficinas en Colombia. Blog Kiel."
+>
+
+  <!-- ════════════════ HERO ════════════════ -->
+  <section class="bg-slate-950 pt-32 pb-16 sm:pt-40 sm:pb-20">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+      <div class="flex items-center gap-4 mb-5">
+        <div class="w-8 h-px bg-kiel-orange"></div>
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange">Ideas y tendencias</p>
+      </div>
+      <h1 class="font-serif text-4xl sm:text-6xl text-white leading-tight mb-4">
+        Blog Kiel
+      </h1>
+      <p class="text-white/50 text-lg max-w-lg leading-relaxed">
+        Consejos, tendencias y referencias para transformar tus espacios.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════════════ POSTS ════════════════ -->
+  <section class="bg-gray-50 py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+
+      <!-- Post destacado (primero) -->
+      <a href={posts[0].slug} class="group block bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-slate-200 hover:shadow-lg transition-all duration-300 mb-6">
+        <div class="grid lg:grid-cols-2">
+          <div class="relative overflow-hidden h-64 lg:h-auto min-h-64">
+            <img src={posts[0].imagen} alt={posts[0].titulo} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0" style="background:linear-gradient(to right,transparent 60%,rgba(255,255,255,0.05) 100%)"></div>
+          </div>
+          <div class="p-8 sm:p-10 flex flex-col justify-center">
+            <span class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-5 w-fit" style={`background:${posts[0].color}18; color:${posts[0].color}`}>
+              {posts[0].categoria}
+            </span>
+            <h2 class="font-serif text-2xl sm:text-3xl text-slate-900 leading-snug mb-4 group-hover:text-kiel-blue transition-colors">
+              {posts[0].titulo}
+            </h2>
+            <p class="text-slate-500 text-sm leading-relaxed mb-6">{posts[0].resumen}</p>
+            <div class="flex items-center gap-4 text-xs text-slate-400">
+              <span>{posts[0].fecha}</span>
+              <span>·</span>
+              <span>{posts[0].tiempo}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Grid de posts secundarios -->
+      <div class="grid sm:grid-cols-2 gap-6">
+        {posts.slice(1).map(post => (
+          <a href={post.slug} class="group bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-slate-200 hover:shadow-lg transition-all duration-300 flex flex-col">
+            <div class="relative overflow-hidden h-52">
+              <img src={post.imagen} alt={post.titulo} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <span class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4 w-fit" style={`background:${post.color}18; color:${post.color}`}>
+                {post.categoria}
+              </span>
+              <h2 class="font-serif text-xl text-slate-900 leading-snug mb-3 group-hover:text-kiel-blue transition-colors flex-1">
+                {post.titulo}
+              </h2>
+              <p class="text-slate-500 text-sm leading-relaxed mb-5 line-clamp-2">{post.resumen}</p>
+              <div class="flex items-center gap-4 text-xs text-slate-400">
+                <span>{post.fecha}</span>
+                <span>·</span>
+                <span>{post.tiempo}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Próximamente -->
+      <div class="mt-12 text-center py-14 rounded-2xl border border-dashed border-slate-200">
+        <p class="text-slate-400 text-sm">Más artículos próximamente</p>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

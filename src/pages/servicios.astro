@@ -1,0 +1,490 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/PENDIENTE/exec';
+
+const anchors = [
+  { id: 'corporativo',    label: 'Corporativo',    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>` },
+  { id: 'educativo',      label: 'Educativo',      icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>` },
+  { id: 'carpinteria',    label: 'Carpintería',    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z"/></svg>` },
+  { id: 'institucional',  label: 'Institucional',  icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/></svg>` },
+  { id: 'almacenamiento', label: 'Almacenamiento', icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>` },
+];
+
+const chipOpciones = [
+  { label: 'Adecuar oficinas',            icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>` },
+  { label: 'Carpintería arquitectónica',  icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z" /></svg>` },
+  { label: 'Renovar espacios educativos', icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" /></svg>` },
+  { label: 'Mobiliario institucional',    icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" /></svg>` },
+  { label: 'Almacenamiento',              icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>` },
+  { label: 'Otro',                        icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>` },
+];
+
+const procesoCarpin = [
+  { num: '01', titulo: 'Diseño', desc: 'Interpretamos el plano y proponemos materiales, acabados y estructura.' },
+  { num: '02', titulo: 'Desarrollo', desc: 'Ingeniería de detalle: piezas, ensambles, tolerancias.' },
+  { num: '03', titulo: 'Producción', desc: 'Fabricación en planta propia con control de calidad en cada etapa.' },
+  { num: '04', titulo: 'Instalación', desc: 'Montaje en sitio. Garantizamos el resultado final.' },
+];
+---
+
+<Layout
+  title="Servicios de Mobiliario y Carpintería en Cali y Palmira"
+  description="Adecuación de oficinas, mobiliario educativo, carpintería arquitectónica, mobiliario institucional y sistemas de almacenamiento. Fabricación propia en Colombia. Kiel."
+>
+
+  <!-- ════════════════ HERO ════════════════ -->
+  <section class="relative overflow-hidden flex items-end" style="min-height: 60vh">
+    <img src="/hero/oficinas.jpg" alt="Servicios Kiel" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(2,8,22,0.94) 0%,rgba(2,8,22,0.5) 50%,rgba(2,8,22,0.1) 100%)"></div>
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 pb-16" style="padding-top: 160px">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-8 h-px bg-kiel-orange"></div>
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange">Lo que hacemos</p>
+      </div>
+      <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl text-white leading-[1.08] mb-5 max-w-3xl">
+        Conoce nuestros servicios
+      </h1>
+      <p class="text-white/60 text-lg sm:text-xl max-w-xl leading-relaxed">
+        Transforme sus espacios en herramientas de productividad. Solicite una visita y diseñe sin costo.
+      </p>
+    </div>
+  </section>
+
+  <style>
+    /* mobile: nav (64px) + barra anclas (~45px) = 109px; desktop: solo nav (64px) + margen */
+    [data-section], #cotizar { scroll-margin-top: 109px; }
+    @media (min-width: 1024px) { [data-section], #cotizar { scroll-margin-top: 80px; } }
+    .sidebar-link.active .sidebar-dot  { background: #EE9200; transform: scale(1.4); }
+    .sidebar-link.active .sidebar-label { color: #EE9200; }
+    .mobile-anchor.active { color: #EE9200; background: #FFF4E0; }
+    .mobile-anchor.active .mob-label { max-width: 100px !important; padding-left: 6px !important; }
+  </style>
+
+  <!-- ════════════════ SIDEBAR LATERAL (desktop) ════════════════ -->
+  <aside class="hidden lg:flex fixed right-6 z-40 flex-col gap-0" style="top:50%;transform:translateY(-50%)">
+    {anchors.map(a => (
+      <a href={`#${a.id}`} class="sidebar-link group flex items-center gap-3 py-2.5 justify-end" data-target={a.id}>
+        <span class="sidebar-label text-xs font-medium text-slate-400 group-hover:text-kiel-orange transition-colors duration-200 text-right leading-tight">
+          {a.label}
+        </span>
+        <span class="sidebar-dot w-2 h-2 rounded-full bg-slate-300 group-hover:bg-kiel-orange shrink-0 transition-all duration-200"></span>
+      </a>
+    ))}
+  </aside>
+
+  <!-- ════════════════ NAV ICONOS (mobile) ════════════════ -->
+  <nav class="lg:hidden sticky z-40 bg-white border-b border-slate-100 shadow-sm" style="top:64px">
+    <div class="flex justify-around px-2 py-1">
+      {anchors.map(a => (
+        <a href={`#${a.id}`} class="mobile-anchor flex items-center gap-0 rounded-full px-3 py-2 transition-all duration-300 text-slate-400" data-target={a.id}>
+          <span class="[&>svg]:w-5 [&>svg]:h-5 shrink-0">
+            <Fragment set:html={a.icon} />
+          </span>
+          <span class="mob-label text-xs font-semibold whitespace-nowrap overflow-hidden" style="max-width:0;padding-left:0;transition:max-width .35s ease,padding-left .35s ease">
+            {a.label}
+          </span>
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  <!-- ════════════════ ESPACIOS CORPORATIVOS ════════════════ -->
+  <section id="corporativo" data-section class="bg-white py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+        <div>
+          <h2 class="font-serif text-4xl sm:text-5xl text-slate-900 mb-5 leading-tight">Espacios corporativos</h2>
+          <p class="text-slate-500 text-lg italic mb-6 leading-snug">
+            Diseño y fabricación de muebles de oficina: puestos de trabajo, escritorios, sillas, divisiones modulares, salas de juntas y recepciones.
+          </p>
+
+          <div class="flex items-center gap-6 mb-8">
+            {['Puestos de trabajo', 'Sala de juntas', 'Recepción'].map((p, i) => (
+              <div class="flex items-center gap-6">
+                {i > 0 && <span class="text-slate-200 text-xl">·</span>}
+                <span class="font-semibold text-slate-800 text-base">{p}</span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            class="cta-service inline-flex items-center gap-3 bg-kiel-blue hover:bg-kiel-blue-dark text-white font-semibold text-sm px-7 py-3.5 rounded-xl transition-colors"
+            data-chip="0"
+          >
+            Quiero adecuar mi oficina
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <div class="relative rounded-2xl overflow-hidden h-52 sm:h-64">
+            <img src="/nosotros/hero-nosotros2.jpg" alt="Adecuación de oficinas y mobiliario corporativo en Cali — Kiel" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-6">
+              <div>
+                <p class="text-white/60 text-xs font-semibold uppercase tracking-wider mb-1">Caso de éxito</p>
+                <p class="text-white font-semibold text-base">Toyota · TaskUs · Amcor</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5">
+            <p class="text-slate-400 text-sm leading-relaxed italic">
+              "Proyecto destacado — descripción del reto, la solución y el resultado. Este espacio se actualiza con el caso real del cliente."
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ ESPACIOS EDUCATIVOS ════════════════ -->
+  <section id="educativo" data-section class="bg-gray-50 py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+        <div class="order-2 lg:order-1 space-y-4">
+          <div class="relative rounded-2xl overflow-hidden h-52 sm:h-64">
+            <img src="/hero/colegio.jpg" alt="Mobiliario educativo para colegios y universidades en Colombia — Kiel" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-6">
+              <div>
+                <p class="text-white/60 text-xs font-semibold uppercase tracking-wider mb-1">Caso de éxito</p>
+                <p class="text-white font-semibold text-base">Javeriana · Santo Tomás</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-slate-100">
+            <p class="text-slate-400 text-sm leading-relaxed italic">
+              "Proyecto destacado — descripción del reto, la solución y el resultado. Este espacio se actualiza con el caso real del cliente."
+            </p>
+          </div>
+        </div>
+
+        <div class="order-1 lg:order-2">
+          <h2 class="font-serif text-4xl sm:text-5xl text-slate-900 mb-5 leading-tight">Espacios educativos</h2>
+          <p class="text-slate-500 text-lg italic mb-6 leading-snug">
+            Mobiliario para colegios, universidades y centros de formación: mesas, sillas, lockers, tableros y bibliotecas de alto tráfico.
+          </p>
+
+          <div class="flex items-center gap-6 mb-8">
+            {['Mesas y sillas', 'Lockers', 'Tableros'].map((p, i) => (
+              <div class="flex items-center gap-6">
+                {i > 0 && <span class="text-slate-200 text-xl">·</span>}
+                <span class="font-semibold text-slate-800 text-base">{p}</span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            class="cta-service inline-flex items-center gap-3 bg-kiel-blue hover:bg-kiel-blue-dark text-white font-semibold text-sm px-7 py-3.5 rounded-xl transition-colors"
+            data-chip="2"
+          >
+            Quiero renovar espacios educativos
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ CARPINTERÍA ARQUITECTÓNICA (PREMIUM) ════════════════ -->
+  <section id="carpinteria" data-section class="bg-slate-950 py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+
+      <!-- Header + imagen en dos columnas -->
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-14">
+
+        <div>
+          <h2 class="font-serif text-4xl sm:text-5xl text-white leading-[1.08] mb-4">
+            Carpintería arquitectónica
+          </h2>
+          <p class="font-serif text-xl text-white/40 mb-5">Del plano a la realidad.</p>
+          <p class="text-slate-400 text-base leading-relaxed mb-8">
+            No basta con diseñar algo atractivo. Hay que poder construirlo. Fabricamos muebles fijos, cocinas, bibliotecas, estanterías y carpintería metálica en planta propia con precisión milimétrica.
+          </p>
+          <button
+            class="cta-service inline-flex items-center gap-3 bg-kiel-orange hover:bg-kiel-orange-dark text-white font-bold text-sm px-7 py-3.5 rounded-xl transition-colors"
+            data-chip="1"
+          >
+            Llevamos a la realidad tus proyectos
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </button>
+        </div>
+
+        <div class="relative rounded-2xl overflow-hidden h-64 sm:h-80">
+          <img src="/nosotros/tecnologia.jpg" alt="Carpintería arquitectónica a medida — muebles fijos, cocinas, bibliotecas y proyectos de diseño de interiores en Cali y Palmira" class="w-full h-full object-cover brightness-75" />
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(2,8,22,0.6) 0%,transparent 60%)"></div>
+          <div class="absolute bottom-0 left-0 p-6">
+            <p class="font-serif text-xl text-white leading-snug">
+              Convertimos diseños complejos en realidades construidas con precisión.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proceso paso a paso -->
+      <div>
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange mb-8">El proceso</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-0">
+          {procesoCarpin.map((paso) => (
+            <div class="border-t-2 border-white/10 hover:border-kiel-orange pt-6 pb-8 lg:pr-8 transition-colors duration-300 group">
+              <h3 class="text-white font-semibold text-base mb-2">{paso.titulo}</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">{paso.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════ MOBILIARIO INSTITUCIONAL ════════════════ -->
+  <section id="institucional" data-section class="bg-white py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+        <div>
+          <h2 class="font-serif text-4xl sm:text-5xl text-slate-900 mb-5 leading-tight">Espacios colectivos</h2>
+          <p class="text-slate-500 text-lg italic mb-6 leading-snug">
+            Mobiliario institucional para auditorios, cafeterías, salas de espera y espacios públicos a gran escala.
+          </p>
+
+          <div class="flex items-center gap-6 mb-8">
+            {['Auditorios', 'Cafetería', 'Tándems'].map((p, i) => (
+              <div class="flex items-center gap-6">
+                {i > 0 && <span class="text-slate-200 text-xl">·</span>}
+                <span class="font-semibold text-slate-800 text-base">{p}</span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            class="cta-service inline-flex items-center gap-3 bg-kiel-blue hover:bg-kiel-blue-dark text-white font-semibold text-sm px-7 py-3.5 rounded-xl transition-colors"
+            data-chip="3"
+          >
+            Quiero cotizar mobiliario institucional
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </button>
+        </div>
+
+        <div class="relative rounded-2xl overflow-hidden h-52 sm:h-64">
+          <img src="/hero/callcenter.jpg" alt="Mobiliario institucional — auditorios, cafeterías y espacios colectivos en Colombia" class="w-full h-full object-cover" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ ALMACENAMIENTO ════════════════ -->
+  <section id="almacenamiento" data-section class="bg-gray-50 py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+        <div class="order-2 lg:order-1 relative rounded-2xl overflow-hidden h-52 sm:h-64">
+          <img src="/nosotros/instalacion.jpg" alt="Sistemas de almacenamiento — estanterías, archivadores rodantes y góndolas para bodegas en Colombia" class="w-full h-full object-cover" />
+        </div>
+
+        <div class="order-1 lg:order-2">
+          <h2 class="font-serif text-4xl sm:text-5xl text-slate-900 mb-5 leading-tight">Almacenamiento</h2>
+          <p class="text-slate-500 text-lg italic mb-6 leading-snug">
+            Estanterías, archivadores, góndolas y sistemas modulares para bodegas, archivos y puntos de venta.
+          </p>
+
+          <div class="flex items-center gap-6 mb-8">
+            {['Estanterías', 'Archivadores', 'Góndolas'].map((p, i) => (
+              <div class="flex items-center gap-6">
+                {i > 0 && <span class="text-slate-200 text-xl">·</span>}
+                <span class="font-semibold text-slate-800 text-base">{p}</span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            class="cta-service inline-flex items-center gap-3 bg-kiel-blue hover:bg-kiel-blue-dark text-white font-semibold text-sm px-7 py-3.5 rounded-xl transition-colors"
+            data-chip="4"
+          >
+            Quiero optimizar mi espacio
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ FORMULARIO ════════════════ -->
+  <section id="cotizar" class="bg-slate-50 py-24 sm:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-16 items-start">
+
+      <div class="lg:pt-4 order-2 lg:order-1">
+        <p class="text-xs font-semibold uppercase tracking-widest text-kiel-orange mb-4">Cotización sin costo</p>
+        <h2 class="font-serif text-2xl sm:text-3xl text-slate-900 mb-5 leading-snug">
+          Cuéntanos un poco más: ¿qué espacio quieres transformar y qué te gustaría lograr?
+        </h2>
+        <p class="text-slate-500 text-lg leading-relaxed mb-10">
+          Cuéntanos qué necesitas y te contactaremos de inmediato. Sin compromiso.
+        </p>
+        <div class="space-y-5">
+          {[
+            { icon: '🏢', titulo: '28 años de experiencia', desc: 'Diseñando y fabricando espacios que duran.' },
+            { icon: '⚡', titulo: 'Respuesta inmediata',     desc: 'Te contactamos el mismo día hábil.' },
+            { icon: '🏭', titulo: 'Fabricación propia',      desc: 'Taller propio, control total de calidad.' },
+          ].map(item => (
+            <div class="flex gap-4">
+              <div class="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-lg shrink-0">{item.icon}</div>
+              <div>
+                <p class="font-semibold text-slate-800 text-sm">{item.titulo}</p>
+                <p class="text-slate-400 text-sm">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-md border-2 border-kiel-blue p-8 order-1 lg:order-2">
+        <form id="cotizar-form" novalidate>
+          <input type="hidden" id="necesidad-input" name="necesidad" />
+          <div class="flex items-center gap-1.5 mb-6">
+            <div class="prog-pill done" id="p1"></div>
+            <div class="prog-pill" id="p2"></div>
+            <div class="prog-pill" id="p3"></div>
+            <span class="ml-2 text-xs text-slate-400 font-medium">Paso <span id="step-current">1</span> de 3</span>
+          </div>
+
+          <div id="step-1">
+            <p class="font-semibold text-slate-800 text-sm mb-0.5">¿Qué necesitas?</p>
+            <p class="text-xs text-slate-400 mb-3">Selecciona una opción para continuar.</p>
+            <div class="grid grid-cols-2 gap-2 mb-5">
+              {chipOpciones.map(c => (
+                <button type="button" class="chip" data-value={c.label}>
+                  <span class="chip-icon"><Fragment set:html={c.icon} /></span>
+                  <span>{c.label}</span>
+                </button>
+              ))}
+            </div>
+            <button type="button" id="btn-next-1" disabled
+              class="w-full bg-kiel-blue hover:bg-kiel-blue-dark disabled:opacity-35 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
+              Continuar
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+            </button>
+          </div>
+
+          <div id="step-2" class="hidden">
+            <p class="font-semibold text-slate-800 text-sm mb-1">Cuéntanos sobre tu proyecto</p>
+            <div class="flex items-center gap-2 mb-3 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+              <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
+              <p class="text-xs text-amber-700 font-medium">Opcional — nos ayuda a preparar una mejor propuesta.</p>
+            </div>
+            <textarea name="descripcion" rows="5" placeholder="¿Qué espacio quieres transformar? ¿Qué te gustaría lograr?" class="form-input resize-none mb-4"></textarea>
+            <div class="flex gap-2">
+              <button type="button" id="btn-back-2" class="flex-1 border border-slate-200 text-slate-500 hover:bg-slate-100 font-medium py-3 rounded-lg transition-colors text-sm">← Atrás</button>
+              <button type="button" id="btn-next-2" class="flex-2 bg-kiel-blue hover:bg-kiel-blue-dark text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
+                Continuar <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="step-3" class="hidden">
+            <p class="font-semibold text-slate-800 text-sm mb-1">Tus datos de contacto</p>
+            <p class="text-xs text-slate-400 mb-4">Te contactamos en menos de 24 horas.</p>
+            <div class="space-y-2 mb-4">
+              <input type="text"  name="nombre"   required placeholder="Nombre completo *"       class="form-input" />
+              <input type="text"  name="empresa"  required placeholder="Empresa / institución *" class="form-input" />
+              <input type="tel"   name="telefono" required placeholder="Teléfono / WhatsApp *"   class="form-input" />
+              <input type="text"  name="cargo"             placeholder="Cargo"                   class="form-input" />
+              <input type="email" name="correo"            placeholder="Correo electrónico"      class="form-input" />
+            </div>
+            <div class="flex gap-2">
+              <button type="button" id="btn-back-3" class="flex-1 border border-slate-200 text-slate-500 hover:bg-slate-100 font-medium py-3 rounded-lg transition-colors text-sm">← Atrás</button>
+              <button type="submit" id="submit-btn" class="flex-2 bg-kiel-orange hover:bg-kiel-orange-dark text-white font-semibold py-3 rounded-lg transition-colors text-sm">
+                Quiero que me contacten
+              </button>
+            </div>
+          </div>
+
+          <div id="form-success" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-xl text-sm text-green-800">¡Listo! Recibimos tu información, nuestro equipo te contactará muy pronto.</div>
+          <div id="form-error"   class="hidden mt-4 p-4 bg-red-50   border border-red-200   rounded-xl text-sm text-red-800">Ocurrió un error al enviar. Intenta de nuevo o escríbenos por WhatsApp.</div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<script is:inline define:vars={{ APPS_SCRIPT_URL }}>
+  // ── Nav activa según sección visible ──────────────────────────────
+  const navLinks = document.querySelectorAll('.sidebar-link, .mobile-anchor');
+  const sections = document.querySelectorAll('[data-section]');
+
+  function setActive(id) {
+    navLinks.forEach(l => l.classList.toggle('active', l.dataset.target === id));
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // ── Formulario multi-paso ──────────────────────────────────────────
+  function goToStep(n) {
+    [1,2,3].forEach(i => {
+      document.getElementById(`step-${i}`)?.classList.toggle('hidden', i !== n);
+    });
+    document.getElementById('step-current').textContent = n;
+    ['p1','p2','p3'].forEach((id, i) => {
+      document.getElementById(id)?.classList.toggle('done', i < n);
+    });
+  }
+
+  const chips = document.querySelectorAll('.chip');
+  const btnNext1 = document.getElementById('btn-next-1');
+  const necesidadInput = document.getElementById('necesidad-input');
+  let selectedChip = null;
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      selectedChip = chip.dataset.value;
+      necesidadInput.value = selectedChip;
+      btnNext1.disabled = false;
+    });
+  });
+
+  btnNext1?.addEventListener('click', () => goToStep(2));
+  document.getElementById('btn-next-2')?.addEventListener('click', () => goToStep(3));
+  document.getElementById('btn-back-2')?.addEventListener('click', () => goToStep(1));
+  document.getElementById('btn-back-3')?.addEventListener('click', () => goToStep(2));
+
+  document.getElementById('cotizar-form')?.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    const data = Object.fromEntries(new FormData(e.target));
+    try {
+      await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      document.getElementById('step-3').classList.add('hidden');
+      document.getElementById('form-success').classList.remove('hidden');
+    } catch {
+      document.getElementById('form-error').classList.remove('hidden');
+      btn.disabled = false; btn.textContent = 'Quiero que me contacten';
+    }
+  });
+
+  // ── Pre-selección desde CTA de servicio ──────────────────────────
+  document.querySelectorAll('.cta-service').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const chipIndex = parseInt(btn.dataset.chip);
+      document.getElementById('cotizar').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        const target = document.querySelectorAll('.chip')[chipIndex];
+        if (target) target.click();
+      }, 600);
+    });
+  });
+
+</script>

@@ -1,0 +1,681 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/PENDIENTE/exec';
+
+const heroSlides = [
+  { src: '/hero/oficinas.jpg',    alt: 'Adecuación de oficinas corporativas' },
+  { src: '/hero/callcenter.jpg',  alt: 'Oficinas open space equipadas por Kiel' },
+  { src: '/hero/colegio.jpg',     alt: 'Mobiliario para espacios educativos' },
+  { src: '/hero/carpinteria.jpg', alt: 'Carpintería arquitectónica Kiel' },
+];
+
+const chipOpciones = [
+  {
+    label: 'Adecuar oficinas',
+    icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>`,
+  },
+  {
+    label: 'Carpintería arquitectónica',
+    icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z" /></svg>`,
+  },
+  {
+    label: 'Renovar espacios educativos',
+    icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" /></svg>`,
+  },
+  {
+    label: 'Mobiliario institucional',
+    icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" /></svg>`,
+  },
+  {
+    label: 'Almacenamiento',
+    icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>`,
+  },
+  {
+    label: 'Otro',
+    icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>`,
+  },
+];
+
+const servicios = [
+  {
+    titulo: 'Adecuar oficinas',
+    desc: 'Espacios corporativos que mejoran la productividad y la imagen de tu empresa.',
+    href: '/servicios#corporativos',
+    img: '/servicios/oficinas.jpg',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>`,
+  },
+  {
+    titulo: 'Renovar o adecuar espacios educativos',
+    desc: 'Mobiliario diseñado para resistir el uso intensivo de colegios y universidades.',
+    href: '/servicios#educativos',
+    img: '/servicios/educativo.jpg',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" /></svg>`,
+  },
+  {
+    titulo: 'Carpintería arquitectónica',
+    desc: 'Convertimos diseños complejos en realidades construidas con precisión.',
+    href: '/servicios#carpinteria',
+    img: '/servicios/carpinteria.jpg',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z" /></svg>`,
+  },
+  {
+    titulo: 'Equipar espacios colectivos',
+    desc: 'Soluciones para colectividades, entidades públicas y organizaciones de gran escala.',
+    href: '/servicios#institucional',
+    img: '/servicios/colectivo.jpg',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" /></svg>`,
+  },
+  {
+    titulo: 'Optimizar almacenamiento',
+    desc: 'Aprovecha cada metro cuadrado disponible con soluciones a la medida.',
+    href: '/servicios#almacenamiento',
+    img: '/servicios/almacenamiento.jpg',
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>`,
+  },
+];
+
+const pasos = [
+  { num: '01', titulo: 'Escuchamos', desc: 'Entendemos quién usará el espacio y qué necesita lograr.' },
+  { num: '02', titulo: 'Diseñamos', desc: 'Convertimos esa necesidad en una propuesta funcional y a la medida.' },
+  { num: '03', titulo: 'Fabricamos', desc: 'Producción propia, con control total de calidad y materiales.' },
+  { num: '04', titulo: 'Instalamos', desc: 'Ejecución completa en sitio. Llegamos hasta el final.' },
+  { num: '05', titulo: 'Acompañamos', desc: 'Garantía y soporte después de la entrega. No desaparecemos.' },
+];
+
+const clientes = [
+  { nombre: 'Toyota',          logo: '/logos/toyota-seeklogo.svg' },
+  { nombre: 'TaskUs',          logo: '/logos/taskus-seeklogo.png' },
+  { nombre: 'Bavaria',         logo: '/logos/bavaria.png' },
+  { nombre: 'Corona Colombia', logo: '/logos/Corona Colombia.svg' },
+  { nombre: 'Ecopetrol',       logo: '/logos/Ecopetrol_Logo_0.svg' },
+  { nombre: 'Motul',           logo: '/logos/motul-logo-1.svg' },
+];
+
+const WA_COTIZAR = `https://wa.me/573000000000?text=${encodeURIComponent('Hola, quiero cotizar un proyecto con Kiel.')}`;
+---
+
+<Layout title="Mobiliario corporativo y carpintería arquitectónica en Cali">
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <section class="relative min-h-screen overflow-hidden flex items-center justify-center pt-16">
+
+    <!-- Slides de fondo -->
+    {heroSlides.map((slide) => (
+      <div
+        class="hero-slide"
+        style={`background-image: url('${slide.src}')`}
+        role="img"
+        aria-label={slide.alt}
+      />
+    ))}
+
+    <!-- Overlay gradiente oscuro -->
+    <div
+      class="absolute inset-0 z-10"
+      style="background: linear-gradient(to bottom, rgba(0,8,20,0.62) 0%, rgba(0,8,20,0.38) 45%, rgba(0,8,20,0.72) 100%)"
+    ></div>
+
+    <!-- Contenido centrado -->
+    <div class="relative z-20 text-center max-w-4xl mx-auto px-6 py-28">
+
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 bg-white/10 border border-white/15 backdrop-blur-sm rounded-full px-4 py-1.5 mb-8">
+        <span class="w-2 h-2 rounded-full bg-kiel-orange shrink-0 animate-pulse"></span>
+        <span class="text-white text-xs font-semibold tracking-wide">Fabricamos en Cali y Palmira · Servicio en todo Colombia</span>
+      </div>
+
+      <h1 class="font-serif text-white text-5xl sm:text-6xl lg:text-7xl leading-tight mb-6">
+        Creamos espacios que sí funcionan.
+      </h1>
+
+      <p class="text-white/70 text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
+        Diseñamos, fabricamos e instalamos mobiliario y carpintería arquitectónica para empresas, colegios y proyectos en Colombia.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
+        <a
+          href="#cotizar"
+          class="inline-flex items-center gap-2 bg-kiel-orange hover:bg-kiel-orange-dark text-white font-bold px-8 py-4 rounded-xl transition-colors text-base shadow-2xl shadow-orange-900/40"
+        >
+          Cotiza gratis ahora
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+        <span class="text-white/55 text-sm flex items-center gap-2">
+          <svg class="w-4 h-4 text-green-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Te respondemos de inmediato
+        </span>
+      </div>
+    </div>
+
+    <!-- Indicadores de slide -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      {heroSlides.map((_, i) => (
+        <div class="hero-dot" style={`animation-delay: ${i * 6}s`}></div>
+      ))}
+    </div>
+
+    <!-- Flecha scroll -->
+    <div class="absolute bottom-8 right-8 z-20 hidden sm:flex flex-col items-center gap-1.5 text-white/30">
+      <span class="text-[10px] tracking-[0.2em] uppercase rotate-90 origin-center translate-y-3">Scroll</span>
+      <svg class="w-4 h-4 animate-bounce mt-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ FORMULARIO ═══════════════════════ -->
+  <section id="cotizar" class="bg-slate-50 py-24 sm:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-16 items-start">
+
+      <!-- Izquierda: texto (abajo en móvil, izquierda en desktop) -->
+      <div class="lg:pt-4 order-2 lg:order-1">
+        <p class="text-xs font-semibold uppercase tracking-widest text-kiel-orange mb-4">Cotización sin costo</p>
+        <h2 class="font-serif text-2xl sm:text-3xl text-slate-900 mb-5 leading-snug">
+          Cuéntanos un poco más: ¿qué espacio quieres transformar y qué te gustaría lograr?
+        </h2>
+        <p class="text-slate-500 text-lg leading-relaxed mb-10">
+          Cuéntanos qué necesitas y te contactaremos de inmediato. Sin compromiso.
+        </p>
+
+        <div class="space-y-5">
+          {[
+            { icon: '🏢', titulo: '28 años de experiencia', desc: 'Mobiliario corporativo, educativo e institucional para Colombia.' },
+            { icon: '⚡', titulo: 'Respuesta en menos de 24h', desc: 'Te contactamos el mismo día hábil.' },
+            { icon: '🏭', titulo: 'Fabricación propia', desc: 'Planta propia en Palmira, Valle del Cauca. Control total.' },
+          ].map((item) => (
+            <div class="flex gap-4">
+              <div class="w-10 h-10 rounded-xl bg-white border border-slate-100 shadow-sm flex items-center justify-center text-lg shrink-0">
+                {item.icon}
+              </div>
+              <div>
+                <p class="font-semibold text-slate-800 text-sm">{item.titulo}</p>
+                <p class="text-slate-400 text-sm">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Derecha: formulario (primero en móvil, derecha en desktop) -->
+      <div class="bg-white rounded-2xl shadow-md border-2 border-kiel-blue p-8 order-1 lg:order-2">
+        <form id="cotizar-form" novalidate>
+          <input type="hidden" id="necesidad-input" name="necesidad" />
+
+          <!-- Indicador de progreso -->
+          <div class="flex items-center gap-1.5 mb-6">
+            <div class="prog-pill done" id="p1"></div>
+            <div class="prog-pill" id="p2"></div>
+            <div class="prog-pill" id="p3"></div>
+            <span class="ml-2 text-xs text-slate-400 font-medium">
+              Paso <span id="step-current">1</span> de 3
+            </span>
+          </div>
+
+          <!-- ── PASO 1: ¿Qué necesitas? ── -->
+          <div id="step-1">
+            <p class="font-semibold text-slate-800 text-sm mb-0.5">¿Qué necesitas?</p>
+            <p class="text-xs text-slate-400 mb-3">Selecciona una opción para continuar.</p>
+            <div class="grid grid-cols-2 gap-2 mb-5">
+              {chipOpciones.map((c) => (
+                <button type="button" class="chip" data-value={c.label}>
+                  <span class="chip-icon">
+                    <Fragment set:html={c.icon} />
+                  </span>
+                  <span>{c.label}</span>
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              id="btn-next-1"
+              disabled
+              class="w-full bg-kiel-orange hover:bg-kiel-orange-dark disabled:opacity-35 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+            >
+              Continuar
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- ── PASO 2: Tu proyecto ── -->
+          <div id="step-2" class="hidden">
+            <p class="font-semibold text-slate-800 text-sm mb-1">Cuéntanos sobre tu proyecto</p>
+            <div class="flex items-center gap-2 mb-3 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+              <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+              </svg>
+              <p class="text-xs text-amber-700 font-medium">Opcional — nos ayuda a preparar una mejor propuesta.</p>
+            </div>
+            <textarea
+              name="descripcion"
+              rows="5"
+              placeholder="¿Qué espacio quieres transformar? ¿Qué te gustaría lograr?"
+              class="form-input resize-none mb-4"
+            ></textarea>
+            <div class="flex gap-2">
+              <button type="button" id="btn-back-2"
+                class="flex-1 border border-slate-200 text-slate-500 hover:bg-slate-100 font-medium py-3 rounded-lg transition-colors text-sm">
+                ← Atrás
+              </button>
+              <button type="button" id="btn-next-2"
+                class="flex-2 bg-kiel-orange hover:bg-kiel-orange-dark text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
+                Continuar
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- ── PASO 3: Tus datos ── -->
+          <div id="step-3" class="hidden">
+            <p class="font-semibold text-slate-800 text-sm mb-1">Tus datos de contacto</p>
+            <p class="text-xs text-slate-400 mb-4">Te contactamos en menos de 24 horas.</p>
+            <div class="space-y-2 mb-4">
+              <input type="text"  name="nombre"   required placeholder="Nombre completo *"       class="form-input" />
+              <input type="text"  name="empresa"  required placeholder="Empresa / institución *" class="form-input" />
+              <input type="tel"   name="telefono" required placeholder="Teléfono / WhatsApp *"    class="form-input" />
+              <input type="text"  name="cargo"             placeholder="Cargo"                    class="form-input" />
+              <input type="email" name="correo"            placeholder="Correo electrónico"       class="form-input" />
+            </div>
+            <div class="flex gap-2">
+              <button type="button" id="btn-back-3"
+                class="flex-1 border border-slate-200 text-slate-500 hover:bg-slate-100 font-medium py-3 rounded-lg transition-colors text-sm">
+                ← Atrás
+              </button>
+              <button type="submit" id="submit-btn"
+                class="flex-2 bg-kiel-orange hover:bg-kiel-orange-dark disabled:opacity-60 text-white font-semibold py-3 rounded-lg transition-colors text-sm">
+                Quiero que me contacten
+              </button>
+            </div>
+          </div>
+
+          <div id="form-success" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-xl text-sm text-green-800">
+            ¡Listo! Recibimos tu información, nuestro equipo te contactará muy pronto.
+          </div>
+          <div id="form-error" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-xl text-sm text-red-800">
+            Ocurrió un error al enviar. Intenta de nuevo o escríbenos por WhatsApp.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ SERVICIOS ═══════════════════════ -->
+  <section class="bg-gray-100 py-24 sm:py-32">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+      <!-- Título centrado -->
+      <div class="text-center mx-auto mb-14">
+        <p class="text-xs font-semibold uppercase tracking-widest text-kiel-orange mb-4">Nuestros servicios</p>
+        <h2 class="font-serif text-4xl sm:text-5xl text-slate-900 mb-4 whitespace-nowrap">
+          ¿Qué proyecto tienes en mente?
+        </h2>
+        <p class="text-slate-500 text-lg leading-relaxed">
+          Encontraremos la solución adecuada para hacerlo realidad.
+        </p>
+      </div>
+
+      <!-- Grid 3×2 -->
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
+
+        {servicios.map((s, i) => (
+          <a
+            href={s.href}
+            class="group relative overflow-hidden rounded-2xl h-56 sm:h-64 lg:h-80 block"
+          >
+            <!-- Imagen full-bleed -->
+            <img
+              src={s.img}
+              alt={s.titulo}
+              class="service-img"
+              loading="lazy"
+            />
+
+            <!-- Gradiente permanente -->
+            <div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/15 to-transparent pointer-events-none" />
+
+            <!-- Número (top-left) -->
+            <span class="absolute top-4 left-4 font-serif text-white/35 text-xs tracking-widest select-none">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+
+            <!-- Ícono (top-right) -->
+            <div class="absolute top-3 right-3 w-8 h-8 rounded-lg bg-black/30 backdrop-blur-sm flex items-center justify-center text-white/50 group-hover:bg-kiel-orange group-hover:text-white transition-all duration-300">
+              <Fragment set:html={s.icon} />
+            </div>
+
+            <!-- Info (bottom, crece hacia arriba al hover) -->
+            <div class="absolute bottom-0 inset-x-0 p-4 sm:p-5">
+              <!-- Descripción + link: se revela en hover -->
+              <div class="service-desc">
+                <div>
+                  <p class="text-white/80 text-xs sm:text-sm leading-relaxed pb-3">{s.desc}</p>
+                  <span class="text-kiel-orange text-xs font-semibold flex items-center gap-1 pb-3">
+                    Ver más
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <!-- Título siempre visible -->
+              <h3 class="font-semibold text-white text-sm sm:text-base leading-snug">{s.titulo}</h3>
+            </div>
+          </a>
+        ))}
+
+        <!-- Card CTA (celda 6) -->
+        <div class="bg-kiel-blue rounded-2xl p-8 flex flex-col justify-between min-h-80">
+          <div>
+            <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center mb-6">
+              <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-2xl text-white mb-3 leading-snug">
+              ¿No encuentras lo que buscas?
+            </h3>
+            <p class="text-blue-100 text-sm leading-relaxed">
+              Cuéntanos tu proyecto. Si está relacionado con espacios, mobiliario o carpintería, lo hacemos realidad.
+            </p>
+          </div>
+          <a
+            href="#cotizar"
+            class="mt-8 inline-flex items-center gap-2 bg-white text-kiel-blue font-bold text-sm px-5 py-3 rounded-xl hover:bg-blue-50 transition-colors self-start"
+          >
+            Cotiza sin costo
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ BANNER: MOBILIARIO USADO ═══════════════════════ -->
+  <div class="bg-kiel-blue py-5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3 text-white">
+        <svg class="w-6 h-6 shrink-0 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
+        </svg>
+        <p class="text-sm sm:text-base font-medium">
+          <strong>¿Tienes mobiliario usado?</strong>{' '}
+          <span class="opacity-90">Lo recibimos como parte de pago.</span>
+        </p>
+      </div>
+      <a href="#cotizar" class="shrink-0 bg-white text-kiel-blue font-bold text-sm px-5 py-2.5 rounded-lg hover:bg-blue-50 transition-colors">
+        Cotizar ahora →
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ ASÍ TRABAJAMOS ═══════════════════════ -->
+  <section class="bg-slate-950 py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+      <div class="max-w-2xl mb-14">
+        <h2 class="font-serif text-4xl sm:text-5xl text-white mb-3">Así trabajamos</h2>
+        <p class="text-slate-400 text-lg">Un solo equipo, un solo responsable, de principio a fin.</p>
+      </div>
+
+      <!-- MOBILE: timeline vertical -->
+      <div class="lg:hidden space-y-0">
+        {pasos.map((paso, i) => (
+          <div class="flex gap-5">
+            <!-- Línea + dot -->
+            <div class="flex flex-col items-center shrink-0">
+              <div class="w-9 h-9 rounded-full border border-kiel-orange bg-slate-950 flex items-center justify-center z-10 shrink-0">
+                <span class="font-serif text-xs text-kiel-orange">{paso.num}</span>
+              </div>
+              {i < pasos.length - 1 && (
+                <div class="w-px flex-1 bg-slate-700 my-2 min-h-8" />
+              )}
+            </div>
+            <!-- Contenido -->
+            <div class="pb-8 pt-1">
+              <h3 class="font-semibold text-white text-sm mb-1.5">{paso.titulo}</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">{paso.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- DESKTOP: timeline horizontal -->
+      <div class="hidden lg:block relative">
+        <div class="absolute top-5 left-0 right-0 h-px bg-slate-700" />
+        <div class="grid grid-cols-5 gap-6">
+          {pasos.map((paso) => (
+            <div class="group relative">
+              <div class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-950 border border-slate-700 group-hover:border-kiel-orange group-hover:bg-kiel-orange transition-all duration-300 mb-6 relative z-10">
+                <span class="font-serif text-xs text-slate-500 group-hover:text-white transition-colors">{paso.num}</span>
+              </div>
+              <h3 class="font-semibold text-white text-sm mb-2">{paso.titulo}</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">{paso.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ CLIENTES ═══════════════════════ -->
+  <section class="bg-white py-24 sm:py-32">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="max-w-2xl mb-14">
+        <h2 class="font-serif text-4xl sm:text-5xl text-slate-900 mb-4">
+          Empresas que ya confiaron en Kiel
+        </h2>
+        <p class="text-slate-500 text-lg leading-relaxed">
+          Toyota, TaskUs, Bavaria, Corona, Ecopetrol y Motul son parte de los proyectos que hemos diseñado, fabricado e instalado.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 items-center mb-14">
+        {clientes.map((c) => (
+          <div class="flex items-center justify-center py-3">
+            <img src={c.logo} alt={c.nombre} class="logo-cliente" />
+          </div>
+        ))}
+      </div>
+
+      <a href="/casos" class="inline-flex items-center gap-2 text-kiel-orange font-semibold hover:text-kiel-orange-dark transition-colors">
+        Ver casos de éxito completos
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ SEO — PRODUCTOS Y SERVICIOS ═══════════════════════ -->
+  <section class="bg-white py-14 sm:py-18 border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
+        <div>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange mb-2">Fabricación colombiana</p>
+          <h2 class="font-serif text-2xl sm:text-3xl text-slate-900 leading-tight">
+            Mobiliario en Cali y Palmira para todo Colombia
+          </h2>
+        </div>
+        <p class="text-slate-400 text-sm max-w-xs leading-relaxed">
+          Planta propia en Palmira, Valle del Cauca. 28 años diseñando, fabricando e instalando.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-0 border border-slate-100 rounded-2xl overflow-hidden" id="seo-accordion">
+        {[
+          {
+            icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>`,
+            titulo: 'Mobiliario para oficinas en Cali',
+            texto: 'Puestos de trabajo, escritorios gerenciales, sillas ergonómicas, divisiones modulares, mesas de sala de juntas, recepciones, sala de espera, isla de trabajo, credenza, pedestales, archivadores rodantes, gabinetes aéreos y canaletas eléctricas.',
+          },
+          {
+            icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>`,
+            titulo: 'Mobiliario educativo Colombia',
+            texto: 'Sillas universitarias, mesas escolares, mesas plegables, tableros, lockers, bibliotecas y mobiliario para auditorios. Fabricación para colegios y universidades con estructura metálica y pintura electrostática.',
+          },
+          {
+            icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z"/></svg>`,
+            titulo: 'Carpintería arquitectónica Cali',
+            texto: 'Muebles fijos, cocinas, closets, mesones, bibliotecas empotradas, carpintería metálica y proyectos de diseño de interiores. Fabricamos lo que otros no pueden construir, con precisión milimétrica.',
+          },
+          {
+            icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/></svg>`,
+            titulo: 'Mobiliario institucional y colectivo',
+            texto: 'Tándems, mobiliario para cafetería, sofás, sillas para auditorios, mobiliario para espacios públicos, exteriores y home office. Proyectos a gran escala en Cali, Palmira, Bogotá y todo el país.',
+          },
+          {
+            icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>`,
+            titulo: 'Almacenamiento y organización',
+            texto: 'Estanterías industriales, góndolas, archivadores rodantes, lockers y sistemas modulares para bodegas, archivos y puntos de venta en acero inoxidable y estructura metálica.',
+          },
+          {
+            icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>`,
+            titulo: 'Fabricante en Cali y Palmira',
+            texto: 'Somos fabricantes de mobiliario corporativo en Cali con 28 años de experiencia. Atendemos proyectos de adecuación de oficinas, diseño de espacios y arquitectura de interiores en el Valle del Cauca y Colombia.',
+          },
+        ].map((item, i) => (
+          <div class={`acc-item border-slate-100 ${i % 2 === 0 ? 'sm:border-r' : ''} ${i < 4 ? 'border-b' : ''}`}>
+            <button class="acc-trigger w-full flex items-center gap-3 px-6 py-4 text-left hover:bg-slate-50 transition-colors" aria-expanded="false">
+              <span class="text-kiel-orange shrink-0 [&>svg]:w-5 [&>svg]:h-5">
+                <Fragment set:html={item.icon} />
+              </span>
+              <span class="flex-1 font-semibold text-slate-800 text-sm">{item.titulo}</span>
+              <svg class="acc-chevron w-4 h-4 text-kiel-orange shrink-0 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+              </svg>
+            </button>
+            <div class="acc-body overflow-hidden" style="display:none">
+              <p class="text-slate-500 text-sm leading-relaxed px-6 pb-5 pt-1">{item.texto}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <script is:inline>
+    document.querySelectorAll('.acc-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const body = btn.nextElementSibling;
+        const chevron = btn.querySelector('.acc-chevron');
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        body.style.display = open ? 'none' : 'block';
+        chevron.style.transform = open ? '' : 'rotate(180deg)';
+      });
+    });
+  </script>
+
+  <!-- ═══════════════════════ CTA FINAL ═══════════════════════ -->
+  <section class="bg-kiel-blue py-24 sm:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <h2 class="font-serif text-4xl sm:text-5xl text-white mb-5">
+        ¿Tienes un proyecto en mente?
+      </h2>
+      <p class="text-blue-100 text-xl leading-relaxed mb-10">
+        Hablemos. Te ayudamos a convertirlo en un espacio que funcione de verdad.
+      </p>
+      <a
+        href={WA_COTIZAR}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-3 bg-white text-kiel-blue font-bold text-base px-8 py-4 rounded-xl hover:bg-blue-50 transition-colors shadow-xl"
+      >
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        Cotiza ahora
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<script is:inline define:vars={{ APPS_SCRIPT_URL }}>
+  const form           = document.getElementById('cotizar-form');
+  const necesidadInput = document.getElementById('necesidad-input');
+  const stepCurrentEl  = document.getElementById('step-current');
+  const chips          = document.querySelectorAll('.chip');
+  const btnNext1       = document.getElementById('btn-next-1');
+  const btnBack2       = document.getElementById('btn-back-2');
+  const btnNext2       = document.getElementById('btn-next-2');
+  const btnBack3       = document.getElementById('btn-back-3');
+  const submitBtn      = document.getElementById('submit-btn');
+  const successMsg     = document.getElementById('form-success');
+  const errorMsg       = document.getElementById('form-error');
+
+  const stepEls = { 1: document.getElementById('step-1'), 2: document.getElementById('step-2'), 3: document.getElementById('step-3') };
+  const pillEls = { 1: document.getElementById('p1'),     2: document.getElementById('p2'),     3: document.getElementById('p3')     };
+
+  function goToStep(n) {
+    Object.values(stepEls).forEach(el => el?.classList.add('hidden'));
+    stepEls[n]?.classList.remove('hidden');
+    Object.entries(pillEls).forEach(([key, pill]) => {
+      Number(key) <= n ? pill?.classList.add('done') : pill?.classList.remove('done');
+    });
+    if (stepCurrentEl) stepCurrentEl.textContent = String(n);
+  }
+
+  btnNext1?.addEventListener('click', () => goToStep(2));
+  btnBack2?.addEventListener('click', () => goToStep(1));
+  btnNext2?.addEventListener('click', () => goToStep(3));
+  btnBack3?.addEventListener('click', () => goToStep(2));
+
+  chips.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      chips.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      if (necesidadInput) necesidadInput.value = btn.dataset.value ?? '';
+      if (btnNext1) btnNext1.disabled = false;
+    });
+  });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const nombre   = form.querySelector('[name="nombre"]')?.value.trim();
+    const empresa  = form.querySelector('[name="empresa"]')?.value.trim();
+    const telefono = form.querySelector('[name="telefono"]')?.value.trim();
+    if (!nombre || !empresa || !telefono) { form.querySelector('[name="nombre"]')?.reportValidity(); return; }
+
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Enviando...'; }
+    successMsg?.classList.add('hidden');
+    errorMsg?.classList.add('hidden');
+
+    const payload = {
+      fecha:       new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' }),
+      necesidad:   necesidadInput?.value || '',
+      descripcion: form.querySelector('[name="descripcion"]')?.value.trim() || '',
+      nombre, empresa, telefono,
+      cargo:       form.querySelector('[name="cargo"]')?.value.trim() || '',
+      correo:      form.querySelector('[name="correo"]')?.value.trim() || '',
+    };
+
+    try {
+      await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      form.reset();
+      chips.forEach(b => b.classList.remove('selected'));
+      if (necesidadInput) necesidadInput.value = '';
+      if (btnNext1) btnNext1.disabled = true;
+      Object.values(stepEls).forEach(el => el?.classList.add('hidden'));
+      successMsg?.classList.remove('hidden');
+    } catch {
+      errorMsg?.classList.remove('hidden');
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Quiero que me contacten'; }
+    }
+  });
+</script>
