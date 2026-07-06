@@ -94,14 +94,15 @@ html {
   background-size: cover;
   background-position: center;
   opacity: 0;
-  animation: hero-fade 24s ease-in-out infinite,
-             hero-zoom  24s ease-in-out infinite;
+  animation: hero-fade 20s ease-in-out infinite,
+             hero-zoom  20s ease-in-out infinite;
 }
 
 .hero-slide:nth-child(1) { animation-delay: 0s;  }
-.hero-slide:nth-child(2) { animation-delay: 6s;  }
-.hero-slide:nth-child(3) { animation-delay: 12s; }
-.hero-slide:nth-child(4) { animation-delay: 18s; }
+.hero-slide:nth-child(2) { animation-delay: 4s;  }
+.hero-slide:nth-child(3) { animation-delay: 8s;  }
+.hero-slide:nth-child(4) { animation-delay: 12s; }
+.hero-slide:nth-child(5) { animation-delay: 16s; }
 
 @keyframes dot-active {
   0%   { opacity: 0.35; width: 8px;  }
@@ -117,7 +118,7 @@ html {
   border-radius: 99px;
   background: white;
   opacity: 0.35;
-  animation: dot-active 24s ease-in-out infinite;
+  animation: dot-active 20s ease-in-out infinite;
 }
 
 /* ── Cards de servicios ── */

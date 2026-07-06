@@ -1,7 +1,5 @@
 ---
 import '../styles/global.css';
-import { Image } from 'astro:assets';
-import logoKiel from '../assets/LogoKiel.jpg';
 
 interface Props {
   title: string;
@@ -151,7 +149,7 @@ const navLinks = [
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
 
         <a href="/" class="shrink-0">
-          <Image src={logoKiel} alt="Kiel — Fabricamos diseño" height={38} class="h-9 w-auto" />
+          <img src="/logos/KIEL/LOGO.svg" alt="Kiel — Fabricamos diseño" class="h-9 w-auto" />
         </a>
 
         <!-- Desktop links -->
@@ -245,7 +243,7 @@ const navLinks = [
           <!-- Brand -->
           <div class="lg:col-span-4">
             <div class="mb-4">
-              <Image src={logoKiel} alt="Kiel" height={44} class="h-11 w-auto" />
+              <img src="/logos/KIEL/LOGO.svg" alt="Kiel" class="h-11 w-auto brightness-0 invert" />
             </div>
             <p class="text-slate-400 text-sm leading-relaxed max-w-xs">
               28 años diseñando, fabricando y construyendo espacios que sí funcionan.

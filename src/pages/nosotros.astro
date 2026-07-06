@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const WA = `https://wa.me/573000000000?text=${encodeURIComponent('Hola, quiero hablar sobre un proyecto con Kiel.')}`;
+const WA = `https://wa.me/573174396729?text=${encodeURIComponent('Hola, quiero hablar sobre un proyecto con Kiel.')}`;
 
 const manifiesto = [
   {
@@ -74,7 +74,7 @@ const diferenciales = [
   ══════════════════════════════════════ -->
   <section class="relative overflow-hidden flex items-end" style="min-height: 82vh">
     <img
-      src="/nosotros/hero-nosotros2.jpg"
+      src="/nosotros/hero-nosotros.webp"
       alt="Espacio corporativo Kiel"
       class="absolute inset-0 w-full h-full object-cover"
     />
@@ -162,13 +162,13 @@ const diferenciales = [
   </section>
 
   <!-- ══════════════════════════════════════
-       TIRA DE IMÁGENES
+       GALERÍA DE PROYECTOS
   ══════════════════════════════════════ -->
   <div class="grid grid-cols-3 h-36 sm:h-56 lg:h-72">
     {[
-      { src: '/nosotros/equipo.jpg',       alt: 'Equipo Kiel' },
-      { src: '/servicios/carpinteria.jpg', alt: 'Fabricación de precisión' },
-      { src: '/nosotros/instalacion.jpg',  alt: 'Instalación en sitio' },
+      { src: '/nosotros/colegio5.webp',      alt: 'Mobiliario escolar con sillas azules — proyecto Kiel' },
+      { src: '/nosotros/escritorio.webp',   alt: 'Escritorio corporativo fabricado por Kiel' },
+      { src: '/nosotros/hero-nosotros.webp', alt: 'Espacio de trabajo diseñado por Kiel' },
     ].map(img => (
       <div class="overflow-hidden">
         <img
@@ -229,14 +229,14 @@ const diferenciales = [
         </div>
 
         <div class="relative rounded-xl overflow-hidden shadow-2xl w-full aspect-video">
-          <iframe
-            src="https://www.youtube.com/embed/3i-k3n9uHJI?rel=0&modestbranding=1"
-            title="Kiel Colombia — Video empresarial"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            class="absolute inset-0 w-full h-full border-0"
-            loading="lazy"
-          ></iframe>
+          <video
+            class="absolute inset-0 w-full h-full object-cover"
+            controls
+            preload="metadata"
+            poster="/nosotros/hero-nosotros.webp"
+          >
+            <source src="/video/video-institucional.mp4" type="video/mp4" />
+          </video>
         </div>
 
       </div>
