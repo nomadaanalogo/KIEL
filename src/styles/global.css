@@ -104,6 +104,14 @@ html {
 .hero-slide:nth-child(4) { animation-delay: 12s; }
 .hero-slide:nth-child(5) { animation-delay: 16s; }
 
+/* Mobile: sin animación — primer slide estático, resto oculto */
+@media (max-width: 767px) {
+  .hero-slide        { animation: none; opacity: 0; }
+  .hero-slide:nth-child(1) { opacity: 1; }
+  .hero-dot          { animation: none; opacity: 0.35; }
+  .hero-dot:nth-child(1) { opacity: 1; width: 24px; }
+}
+
 @keyframes dot-active {
   0%   { opacity: 0.35; width: 8px;  }
   5%   { opacity: 1;    width: 24px; }
