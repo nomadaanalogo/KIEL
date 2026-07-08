@@ -1,335 +1,178 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const casos = [
-  {
-    id: 'toyota',
-    cliente: 'Toyota',
-    servicio: 'Espacios corporativos',
-    logo: '/logos/toyota-seeklogo.svg',
-    desc: 'Adecuación de salas de reuniones y espacios administrativos para la sede regional.',
-    fotos: [],
-  },
-  {
-    id: 'ecopetrol',
-    cliente: 'Ecopetrol',
-    servicio: 'Mobiliario institucional',
-    logo: '/logos/Ecopetrol_Logo_0.svg',
-    desc: 'Suministro e instalación de mobiliario para oficinas operativas y salas técnicas.',
-    fotos: [],
-  },
-  {
-    id: 'bavaria',
-    cliente: 'Bavaria',
-    servicio: 'Carpintería arquitectónica',
-    logo: '/logos/bavaria.png',
-    desc: 'Fabricación e instalación de carpintería en espacios comerciales y administrativos.',
-    fotos: [],
-  },
-  {
-    id: 'corona',
-    cliente: 'Corona',
-    servicio: 'Almacenamiento',
-    logo: '/logos/Corona Colombia.svg',
-    desc: 'Diseño e instalación de sistemas de almacenamiento para bodegas y puntos de venta.',
-    fotos: [],
-  },
-  {
-    id: 'taskus',
-    cliente: 'TaskUs',
-    servicio: 'Espacios corporativos',
-    logo: '/logos/taskus-seeklogo.png',
-    desc: 'Transformación de call center: puestos ergonómicos, divisiones y zonas de descanso.',
-    fotos: [],
-  },
-  {
-    id: 'motul',
-    cliente: 'Motul',
-    servicio: 'Mobiliario institucional',
-    logo: '/logos/motul-logo-1.svg',
-    desc: 'Mobiliario técnico y de exhibición para showroom y áreas de servicio.',
-    fotos: [],
-  },
-  {
-    id: 'cliente-7',
-    cliente: 'Cliente 7',
-    servicio: 'Espacios educativos',
-    logo: '',
-    desc: 'Por confirmar.',
-    fotos: [],
-  },
-  {
-    id: 'cliente-8',
-    cliente: 'Cliente 8',
-    servicio: 'Carpintería arquitectónica',
-    logo: '',
-    desc: 'Por confirmar.',
-    fotos: [],
-  },
-  {
-    id: 'cliente-9',
-    cliente: 'Cliente 9',
-    servicio: 'Almacenamiento',
-    logo: '',
-    desc: 'Por confirmar.',
-    fotos: [],
-  },
+const logos = [
+  { src: '/logos/toyota-seeklogo.svg',  alt: 'Toyota' },
+  { src: '/logos/Ecopetrol_Logo_0.svg', alt: 'Ecopetrol' },
+  { src: '/logos/bavaria.png',          alt: 'Bavaria' },
+  { src: '/logos/Corona Colombia.svg',  alt: 'Corona' },
+  { src: '/logos/taskus-seeklogo.png',  alt: 'TaskUs' },
+  { src: '/logos/motul-logo-1.svg',     alt: 'Motul' },
 ];
 
-const gradients = [
-  'from-slate-700 to-slate-900',
-  'from-blue-900 to-slate-900',
-  'from-stone-700 to-stone-900',
-  'from-zinc-700 to-zinc-900',
-  'from-neutral-700 to-slate-900',
-  'from-gray-700 to-gray-900',
-  'from-slate-600 to-blue-900',
-  'from-stone-600 to-slate-800',
-  'from-zinc-600 to-zinc-900',
+const galeria = [
+  { src: '/hero/javerianacali.webp',               alt: 'Mobiliario educativo — Universidad Javeriana Cali' },
+  { src: '/servicios/corporativo-openspace.webp',  alt: 'Adecuación de oficinas open space' },
+  { src: '/hero/saladejuntas.webp',                alt: 'Sala de juntas corporativa' },
+  { src: '/servicios/educativo-aula-moderna.webp', alt: 'Aula moderna con mobiliario Kiel' },
+  { src: '/hero/carpinteria-arquitectonica.webp',  alt: 'Carpintería arquitectónica a medida' },
+  { src: '/hero/oficina3.webp',                    alt: 'Espacio de trabajo corporativo' },
+  { src: '/servicios/institucional-foodcourt.webp',alt: 'Mobiliario institucional — food court' },
+  { src: '/hero/estanteria2.webp',                 alt: 'Sistema de almacenamiento — estanterías' },
+  { src: '/hero/sillas.webp',                      alt: 'Sillería para espacios colectivos' },
 ];
+
+const stats = [
+  { num: '28',  label: 'años de experiencia' },
+  { num: '+200',label: 'proyectos entregados' },
+  { num: '+50', label: 'clientes activos' },
+  { num: '5',   label: 'líneas de servicio' },
+];
+
+const clientes: Record<string, string[]> = {
+  'Palmira': ['Mapura', 'Oxígenos del Sur', 'Colegio Montessori', 'Colegio Santo Tomás', 'Padel Black Social Club', 'Yoglat'],
+  'Cali': ['Universidad Javeriana', 'Universidad Santiago de Cali', 'Universidad San Buenaventura', 'Colegio Berchmans'],
+  'Tuluá · Buga': ['Agrohacienda La Martina', 'Colombo Farmacéutica', 'Policía Buga'],
+};
 ---
 
 <Layout
   title="Proyectos de Mobiliario y Diseño de Espacios en Colombia"
-  description="Casos de éxito en adecuación de oficinas, espacios educativos y carpintería arquitectónica. Toyota, Ecopetrol, Bavaria, Javeriana y más. Kiel, Cali y Palmira."
+  description="Más de 200 proyectos entregados. Toyota, Ecopetrol, Bavaria, Javeriana y más de 50 clientes en el Valle del Cauca. Kiel, fábrica de muebles en Palmira."
 >
 
   <!-- ════════════════ HERO ════════════════ -->
   <section class="relative overflow-hidden flex items-end" style="min-height:52vh">
-    <img src="/nosotros/equipo.jpg" alt="Casos Kiel" class="absolute inset-0 w-full h-full object-cover" />
-    <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(2,8,22,0.92) 0%,rgba(2,8,22,0.45) 60%,rgba(2,8,22,0.1) 100%)"></div>
+    <img src="/hero/saladejuntas.webp" alt="Proyectos Kiel — mobiliario corporativo y educativo en Colombia" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(2,8,22,0.93) 0%,rgba(2,8,22,0.45) 60%,rgba(2,8,22,0.08) 100%)"></div>
     <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 pb-14 pt-36">
       <div class="flex items-center gap-4 mb-5">
         <div class="w-8 h-px bg-kiel-orange"></div>
         <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange">Lo que hemos hecho</p>
       </div>
       <h1 class="font-serif text-4xl sm:text-6xl text-white leading-[1.08] mb-4 max-w-2xl">
-        Proyectos que hablan por sí solos
+        Espacios que hablan por sí solos
       </h1>
       <p class="text-white/55 text-lg max-w-lg leading-relaxed">
-        Empresas que confiaron en Kiel para transformar sus espacios.
+        28 años transformando oficinas, colegios y espacios institucionales en todo el Valle del Cauca.
       </p>
     </div>
   </section>
 
-  <!-- ════════════════ CASOS DESTACADOS ════════════════ -->
+  <!-- ════════════════ STATS ════════════════ -->
+  <section class="bg-kiel-blue">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+      <div class="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/10">
+        {stats.map(s => (
+          <div class="py-8 sm:py-10 px-6 sm:px-8 text-center">
+            <p class="font-serif text-3xl sm:text-4xl font-bold text-white mb-1">{s.num}</p>
+            <p class="text-white/55 text-xs sm:text-sm uppercase tracking-wider">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ GALERÍA ════════════════ -->
   <section class="bg-white py-16 sm:py-24">
     <div class="max-w-7xl mx-auto px-6 sm:px-10">
 
-      <h2 class="font-serif text-3xl sm:text-4xl text-slate-900 mb-12">Casos destacados</h2>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {casos.map((caso, i) => (
-          <button
-            class="caso-card group flex flex-col rounded-2xl overflow-hidden text-left cursor-pointer focus:outline-none border border-slate-100 hover:border-kiel-orange/30 hover:shadow-xl transition-all duration-300"
-            data-id={caso.id}
-          >
-            <!-- Zona superior: logo centrado -->
-            <div class={`flex-1 bg-linear-to-b ${gradients[i]} flex items-center justify-center p-8 min-h-40 relative`}>
-              {caso.logo
-                ? <img src={caso.logo} alt={caso.cliente} class="h-12 w-auto object-contain filter brightness-0 invert opacity-90" />
-                : <span class="text-white/70 font-semibold text-lg">{caso.cliente}</span>
-              }
-              <!-- Chip esquina superior derecha -->
-              <span class="absolute top-4 right-4 text-[10px] font-semibold uppercase tracking-wider bg-white/10 text-white/70 px-2.5 py-1 rounded-full">
-                {caso.servicio}
-              </span>
-            </div>
-
-            <!-- Zona inferior: info -->
-            <div class="bg-white px-5 py-4 flex items-center justify-between gap-3">
-              <div>
-                <p class="font-semibold text-slate-900 text-sm">{caso.cliente}</p>
-                <p class="text-slate-400 text-xs mt-0.5 line-clamp-1">{caso.desc}</p>
-              </div>
-              <div class="shrink-0 w-8 h-8 rounded-full border border-slate-200 group-hover:border-kiel-orange group-hover:bg-kiel-orange flex items-center justify-center transition-all duration-200">
-                <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
-                </svg>
-              </div>
-            </div>
-          </button>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════ OTROS CLIENTES ════════════════ -->
-  <section class="bg-gray-50 py-14 sm:py-20 border-t border-slate-100">
-    <div class="max-w-7xl mx-auto px-6 sm:px-10">
-      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-10">También han confiado en nosotros</p>
-      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
-        {[
-          { src: '/logos/toyota-seeklogo.svg',   alt: 'Toyota' },
-          { src: '/logos/Ecopetrol_Logo_0.svg',  alt: 'Ecopetrol' },
-          { src: '/logos/bavaria.png',            alt: 'Bavaria' },
-          { src: '/logos/Corona Colombia.svg',   alt: 'Corona' },
-          { src: '/logos/taskus-seeklogo.png',   alt: 'TaskUs' },
-          { src: '/logos/motul-logo-1.svg',      alt: 'Motul' },
-        ].map(l => (
-          <img src={l.src} alt={l.alt} class="logo-cliente h-8 sm:h-10" />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════ PENDIENTES POR AGREGAR ════════════════ -->
-  <section class="bg-white py-14 sm:py-20 border-t border-slate-100">
-    <div class="max-w-7xl mx-auto px-6 sm:px-10">
-      <div class="flex items-center gap-3 mb-8">
-        <div class="w-2 h-2 rounded-full bg-kiel-orange"></div>
-        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Pendientes — buscar logos y decidir</p>
-      </div>
-
-      <div class="grid sm:grid-cols-3 gap-8">
-
+      <div class="flex items-end justify-between mb-10">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wider text-kiel-blue mb-4">Palmira</p>
-          <ul class="space-y-2.5">
-            {['Mapura', 'Oxígenos del Sur', 'Colegio Montessori', 'Colegio Santo Tomás', 'Padel Black Social Club', 'Yoglat'].map(c => (
-              <li class="flex items-center gap-2.5 text-sm text-slate-600">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 shrink-0"></span>
-                {c}
-              </li>
-            ))}
-          </ul>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange mb-2">Nuestro trabajo</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-slate-900">Así lucen los espacios</h2>
         </div>
-
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-wider text-kiel-blue mb-4">Tuluá · Buga</p>
-          <ul class="space-y-2.5">
-            {['Agrohacienda La Martina', 'Colombo Farmacéutica', 'Policía Buga'].map(c => (
-              <li class="flex items-center gap-2.5 text-sm text-slate-600">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 shrink-0"></span>
-                {c}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-wider text-kiel-blue mb-4">Cali</p>
-          <ul class="space-y-2.5">
-            {['Universidad Javeriana', 'Universidad Santiago de Cali', 'Universidad San Buenaventura', 'Colegio Berchmans'].map(c => (
-              <li class="flex items-center gap-2.5 text-sm text-slate-600">
-                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 shrink-0"></span>
-                {c}
-              </li>
-            ))}
-          </ul>
-        </div>
-
       </div>
-    </div>
-  </section>
 
-  <!-- ════════════════ MODAL ════════════════ -->
-  <div id="caso-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-8" style="background:rgba(2,8,22,0.85);backdrop-filter:blur(6px)">
-    <div class="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
-
-      <!-- Header del modal -->
-      <div class="flex items-center justify-between p-6 border-b border-slate-100">
-        <div class="flex items-center gap-4">
-          <div id="modal-logo-wrap" class="bg-slate-50 rounded-xl px-4 py-2 flex items-center justify-center" style="min-width:80px;min-height:44px">
-            <img id="modal-logo" src="" alt="" class="h-6 w-auto object-contain hidden" />
-            <span id="modal-nombre-logo" class="text-slate-700 font-bold text-sm hidden"></span>
+      <!-- Grid: desktop 3 cols, first item featured (col-span-2 row-span-2) -->
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-3" style="grid-auto-rows:210px">
+        {galeria.map((foto, i) => (
+          <div class={`group relative overflow-hidden rounded-2xl${i === 0 ? ' col-span-2 lg:col-span-2 row-span-2' : ''}`}>
+            <img
+              src={foto.src}
+              alt={foto.alt}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
           </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════ LOGOS CLIENTES ════════════════ -->
+  <section class="bg-slate-50 py-16 sm:py-20 border-t border-slate-100">
+    <div class="max-w-5xl mx-auto px-6 sm:px-10 text-center">
+
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-3">Empresas que confían en Kiel</p>
+      <h2 class="font-serif text-3xl sm:text-4xl text-slate-900 mb-14">Clientes que nos respaldan</h2>
+
+      <div class="grid grid-cols-3 sm:grid-cols-6 gap-8 items-center justify-items-center">
+        {logos.map(l => (
+          <div class="group flex items-center justify-center w-full h-14">
+            <img
+              src={l.src}
+              alt={l.alt}
+              class="max-h-10 w-auto max-w-full object-contain grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-400"
+            />
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════ LISTA DE CLIENTES ════════════════ -->
+  <section class="bg-white py-16 sm:py-20 border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 sm:px-10">
+
+      <div class="mb-10">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange mb-2">También han confiado en nosotros</p>
+        <h2 class="font-serif text-3xl sm:text-4xl text-slate-900">Presencia en el Valle del Cauca</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-10 lg:gap-16">
+        {Object.entries(clientes).map(([ciudad, lista]) => (
           <div>
-            <p id="modal-cliente" class="font-semibold text-slate-900 text-base"></p>
-            <p id="modal-servicio" class="text-xs text-kiel-orange font-semibold uppercase tracking-wider"></p>
-          </div>
-        </div>
-        <button id="modal-close" class="text-slate-400 hover:text-slate-700 transition-colors p-1">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Galería de fotos -->
-      <div id="modal-galeria" class="p-6">
-        <!-- Placeholder: cuadrícula de slots de fotos -->
-        <div class="grid grid-cols-2 gap-3 mb-6">
-          {[1,2,3,4].map(() => (
-            <div class="bg-slate-100 rounded-xl flex flex-col items-center justify-center gap-2 text-slate-300" style="aspect-ratio:4/3">
-              <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
-              </svg>
-              <span class="text-xs">Foto próximamente</span>
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-5 h-px bg-kiel-orange"></div>
+              <p class="text-xs font-bold uppercase tracking-widest text-kiel-blue">{ciudad}</p>
             </div>
-          ))}
-        </div>
-
-        <!-- Descripción -->
-        <div class="bg-slate-50 rounded-xl p-5">
-          <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">El proyecto</p>
-          <p id="modal-desc" class="text-slate-700 text-sm leading-relaxed"></p>
-        </div>
+            <ul class="space-y-3">
+              {lista.map(c => (
+                <li class="flex items-center gap-3 text-slate-600 text-sm">
+                  <span class="w-1 h-1 rounded-full bg-kiel-orange shrink-0"></span>
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
     </div>
-  </div>
+  </section>
+
+  <!-- ════════════════ CTA ════════════════ -->
+  <section class="bg-kiel-blue py-16 sm:py-20">
+    <div class="max-w-3xl mx-auto px-6 sm:px-10 text-center">
+      <h2 class="font-serif text-3xl sm:text-4xl text-white mb-4">¿Su empresa podría ser la próxima?</h2>
+      <p class="text-white/60 text-lg mb-8 leading-relaxed">Contáctenos y diseñamos sin costo una propuesta para su espacio.</p>
+      <a
+        href="https://wa.me/573174396729?text=Hola%20Kiel%2C%20vengo%20de%20la%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-3 bg-kiel-orange hover:bg-kiel-orange-dark text-white font-semibold px-8 py-4 rounded-xl transition-colors"
+      >
+        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.855L.057 23.882a.5.5 0 00.606.63l6.208-1.63A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.875 9.875 0 01-5.031-1.376l-.36-.214-3.733.979.997-3.645-.235-.374A9.861 9.861 0 012.118 12C2.118 6.53 6.53 2.118 12 2.118S21.882 6.53 21.882 12 17.47 21.882 12 21.882z"/>
+        </svg>
+        Cotizar por WhatsApp
+      </a>
+    </div>
+  </section>
 
 </Layout>
-
-<script is:inline>
-  const casosData = {
-    toyota:    { cliente: 'Toyota',    servicio: 'Espacios corporativos',    logo: '/logos/toyota-seeklogo.svg',  desc: 'Adecuación de salas de reuniones y espacios administrativos para la sede regional.' },
-    ecopetrol: { cliente: 'Ecopetrol', servicio: 'Mobiliario institucional', logo: '/logos/Ecopetrol_Logo_0.svg', desc: 'Suministro e instalación de mobiliario para oficinas operativas y salas técnicas.' },
-    bavaria:   { cliente: 'Bavaria',   servicio: 'Carpintería arquitectónica', logo: '/logos/bavaria.png',        desc: 'Fabricación e instalación de carpintería en espacios comerciales y administrativos.' },
-    corona:    { cliente: 'Corona',    servicio: 'Almacenamiento',            logo: '/logos/Corona Colombia.svg', desc: 'Diseño e instalación de sistemas de almacenamiento para bodegas y puntos de venta.' },
-    taskus:    { cliente: 'TaskUs',    servicio: 'Espacios corporativos',     logo: '/logos/taskus-seeklogo.png', desc: 'Transformación de call center: puestos ergonómicos, divisiones y zonas de descanso.' },
-    motul:     { cliente: 'Motul',     servicio: 'Mobiliario institucional',  logo: '/logos/motul-logo-1.svg',    desc: 'Mobiliario técnico y de exhibición para showroom y áreas de servicio.' },
-    'cliente-7': { cliente: 'Cliente 7', servicio: 'Espacios educativos',    logo: '', desc: 'Por confirmar.' },
-    'cliente-8': { cliente: 'Cliente 8', servicio: 'Carpintería arquitectónica', logo: '', desc: 'Por confirmar.' },
-    'cliente-9': { cliente: 'Cliente 9', servicio: 'Almacenamiento',         logo: '', desc: 'Por confirmar.' },
-  };
-
-  const modal     = document.getElementById('caso-modal');
-  const btnClose  = document.getElementById('modal-close');
-
-  function openModal(id) {
-    const d = casosData[id];
-    if (!d) return;
-
-    document.getElementById('modal-cliente').textContent  = d.cliente;
-    document.getElementById('modal-servicio').textContent = d.servicio;
-    document.getElementById('modal-desc').textContent     = d.desc;
-
-    const imgEl   = document.getElementById('modal-logo');
-    const nameEl  = document.getElementById('modal-nombre-logo');
-    if (d.logo) {
-      imgEl.src = d.logo; imgEl.alt = d.cliente;
-      imgEl.classList.remove('hidden');
-      nameEl.classList.add('hidden');
-    } else {
-      nameEl.textContent = d.cliente;
-      nameEl.classList.remove('hidden');
-      imgEl.classList.add('hidden');
-    }
-
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    document.body.style.overflow = '';
-  }
-
-  document.querySelectorAll('.caso-card').forEach(btn => {
-    btn.addEventListener('click', () => openModal(btn.dataset.id));
-  });
-
-  btnClose.addEventListener('click', closeModal);
-
-  modal.addEventListener('click', e => {
-    if (e.target === modal) closeModal();
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
-  });
-</script>
