@@ -102,13 +102,17 @@ const WA_COTIZAR = `https://wa.me/573000000000?text=${encodeURIComponent('Hola, 
   <section class="relative min-h-screen overflow-hidden flex items-center justify-center pt-16">
 
     <!-- Slides de fondo -->
-    {heroSlides.map((slide) => (
-      <div
-        class="hero-slide"
-        style={`background-image: url('${slide.src}')`}
-        role="img"
-        aria-label={slide.alt}
-      />
+    {heroSlides.map((slide, i) => (
+      <div class="hero-slide">
+        <img
+          src={slide.src}
+          alt={slide.alt}
+          class="absolute inset-0 w-full h-full object-cover"
+          loading={i === 0 ? 'eager' : 'lazy'}
+          fetchpriority={i === 0 ? 'high' : 'auto'}
+          decoding={i === 0 ? 'sync' : 'async'}
+        />
+      </div>
     ))}
 
     <!-- Overlay gradiente oscuro -->
