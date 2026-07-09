@@ -11,15 +11,23 @@ const logos = [
 ];
 
 const galeria = [
-  { src: '/hero/javerianacali.webp',               alt: 'Mobiliario educativo — Universidad Javeriana Cali' },
-  { src: '/servicios/corporativo-openspace.webp',  alt: 'Adecuación de oficinas open space' },
-  { src: '/hero/saladejuntas.webp',                alt: 'Sala de juntas corporativa' },
-  { src: '/servicios/educativo-aula-moderna.webp', alt: 'Aula moderna con mobiliario Kiel' },
-  { src: '/hero/carpinteria-arquitectonica.webp',  alt: 'Carpintería arquitectónica a medida' },
-  { src: '/hero/oficina3.webp',                    alt: 'Espacio de trabajo corporativo' },
-  { src: '/servicios/institucional-foodcourt.webp',alt: 'Mobiliario institucional — food court' },
-  { src: '/hero/estanteria2.webp',                 alt: 'Sistema de almacenamiento — estanterías' },
-  { src: '/hero/sillas.webp',                      alt: 'Sillería para espacios colectivos' },
+  { src: '/casos/cafeteria.webp',       alt: 'Cafetería institucional' },
+  { src: '/casos/cafeteria2.webp',      alt: 'Cafetería institucional' },
+  { src: '/casos/cafeteria4.webp',      alt: 'Cafetería — comedor institucional' },
+  { src: '/casos/cafeteria6.webp',      alt: 'Mobiliario para cafetería' },
+  { src: '/casos/peluqueria.webp',      alt: 'Peluquería — carpintería a medida' },
+  { src: '/casos/peluqueria2.webp',     alt: 'Peluquería — mobiliario Kiel' },
+  { src: '/casos/sunrise-cargo.webp',   alt: 'Sunrise Cargo Colombia' },
+  { src: '/casos/alcaldia-cali.webp',   alt: 'Alcaldía de Cali' },
+  { src: '/casos/san-buenaventura.webp',alt: 'Universidad San Buenaventura' },
+  { src: '/casos/terminal-cali.webp',   alt: 'Terminal de Transportes Cali' },
+  { src: '/casos/colegio-andes.webp',   alt: 'Colegio Los Andes' },
+  { src: '/casos/estanteria-caso.webp', alt: 'Sistema de almacenamiento' },
+  { src: '/casos/proyecto1.webp',       alt: 'Proyecto Kiel' },
+  { src: '/casos/proyecto2.webp',       alt: 'Proyecto Kiel' },
+  { src: '/casos/proyecto3.webp',       alt: 'Proyecto Kiel' },
+  { src: '/casos/proyecto4.webp',       alt: 'Proyecto Kiel' },
+  { src: '/casos/proyecto5.webp',       alt: 'Proyecto Kiel' },
 ];
 
 const stats = [
@@ -77,30 +85,137 @@ const clientes: Record<string, string[]> = {
   <section class="bg-white py-16 sm:py-24">
     <div class="max-w-7xl mx-auto px-6 sm:px-10">
 
-      <div class="flex items-end justify-between mb-10">
-        <div>
-          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange mb-2">Nuestro trabajo</p>
-          <h2 class="font-serif text-3xl sm:text-4xl text-slate-900">Así lucen los espacios</h2>
-        </div>
+      <div class="mb-10">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange mb-2">Nuestro trabajo</p>
+        <h2 class="font-serif text-3xl sm:text-4xl text-slate-900">Así lucen los espacios</h2>
       </div>
 
-      <!-- Grid: desktop 3 cols, first item featured (col-span-2 row-span-2) -->
-      <div class="grid grid-cols-2 lg:grid-cols-3 gap-3" style="grid-auto-rows:210px">
+      <!-- Grid de thumbnails -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
         {galeria.map((foto, i) => (
-          <div class={`group relative overflow-hidden rounded-2xl${i === 0 ? ' col-span-2 lg:col-span-2 row-span-2' : ''}`}>
+          <button
+            class="lb-trigger group relative overflow-hidden rounded-xl aspect-[4/3] focus:outline-none focus-visible:ring-2 focus-visible:ring-kiel-orange"
+            data-index={i}
+            aria-label={`Ver foto: ${foto.alt}`}
+          >
             <img
               src={foto.src}
               alt={foto.alt}
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              loading={i === 0 ? 'eager' : 'lazy'}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading={i < 8 ? 'eager' : 'lazy'}
             />
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
-          </div>
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+              <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+              </svg>
+            </div>
+          </button>
         ))}
       </div>
 
     </div>
   </section>
+
+  <!-- ════════════════ LIGHTBOX ════════════════ -->
+  <div
+    id="lightbox"
+    class="fixed inset-0 z-[100] hidden items-center justify-center"
+    style="background:rgba(2,6,18,0.93);backdrop-filter:blur(8px)"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Galería de proyectos"
+  >
+    <!-- Botón cerrar -->
+    <button id="lb-close" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white/60 hover:text-white transition-colors p-2 z-10" aria-label="Cerrar">
+      <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Contador -->
+    <p id="lb-counter" class="absolute top-5 left-1/2 -translate-x-1/2 text-white/50 text-sm font-medium tabular-nums"></p>
+
+    <!-- Imagen -->
+    <div class="relative flex items-center justify-center w-full h-full px-14 sm:px-20 py-16">
+      <img id="lb-img" src="" alt="" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl select-none" style="max-height:85vh" draggable="false" />
+    </div>
+
+    <!-- Prev -->
+    <button id="lb-prev" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors p-3" aria-label="Anterior">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+      </svg>
+    </button>
+
+    <!-- Next -->
+    <button id="lb-next" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors p-3" aria-label="Siguiente">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
+      </svg>
+    </button>
+  </div>
+
+  <script type="application/json" id="lb-data" is:inline set:html={JSON.stringify(galeria)}></script>
+
+  <script is:inline>
+    const fotos = JSON.parse(document.getElementById('lb-data').textContent);
+    const lb     = document.getElementById('lightbox');
+    const img    = document.getElementById('lb-img');
+    const counter= document.getElementById('lb-counter');
+    const btnClose = document.getElementById('lb-close');
+    const btnPrev  = document.getElementById('lb-prev');
+    const btnNext  = document.getElementById('lb-next');
+    let current = 0;
+    let touchStartX = 0;
+
+    function show(i) {
+      current = (i + fotos.length) % fotos.length;
+      img.src = fotos[current].src;
+      img.alt = fotos[current].alt;
+      counter.textContent = `${current + 1} / ${fotos.length}`;
+    }
+
+    function open(i) {
+      show(i);
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.lb-trigger').forEach(btn => {
+      btn.addEventListener('click', () => open(+btn.dataset.index));
+    });
+
+    btnClose.addEventListener('click', close);
+    btnPrev.addEventListener('click', () => show(current - 1));
+    btnNext.addEventListener('click', () => show(current + 1));
+
+    lb.addEventListener('click', e => { if (e.target === lb) close(); });
+
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('flex')) return;
+      if (e.key === 'Escape')      close();
+      if (e.key === 'ArrowLeft')   show(current - 1);
+      if (e.key === 'ArrowRight')  show(current + 1);
+    });
+
+    lb.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) dx < 0 ? show(current + 1) : show(current - 1);
+    });
+  </script>
+
+  <!-- Datos para el lightbox -->
+  <script id="lb-data" type="application/json" is:inline>
+    {JSON.stringify(galeria)}
+  </script>
 
   <!-- ════════════════ LOGOS CLIENTES ════════════════ -->
   <section class="bg-slate-50 py-16 sm:py-20 border-t border-slate-100">
