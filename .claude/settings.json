@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/mswhi/Desktop/Paginas Web/**)",
+      "Bash(ls \"c:\\\\Users\\\\mswhi\\\\Desktop\\\\Paginas Web\\\\\")",
+      "Read(//c/Users/mswhi/Desktop/**)",
+      "PowerShell(head -30)",
+      "Read(//c/Users/mswhi/Desktop/Paginas Web/DAMER PG/**)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

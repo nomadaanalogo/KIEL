@@ -62,7 +62,7 @@ const servicios = [
   },
   {
     titulo: 'Equipar espacios colectivos',
-    desc: 'Soluciones para colectividades, entidades públicas y organizaciones de gran escala.',
+    desc: 'Soluciones para colectividades, zonas coworking, entidades públicas y organizaciones de gran escala.',
     href: '/servicios#institucional',
     img: '/hero/oficina1.webp',
     icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" /></svg>`,
@@ -289,8 +289,12 @@ const WA_COTIZAR = `https://wa.me/573000000000?text=${encodeURIComponent('Hola, 
               <input type="text"  name="empresa"  required placeholder="Empresa / institución *" class="form-input" />
               <input type="tel"   name="telefono" required placeholder="Teléfono / WhatsApp *"    class="form-input" />
               <input type="text"  name="cargo"             placeholder="Cargo"                    class="form-input" />
-              <input type="email" name="correo"            placeholder="Correo electrónico"       class="form-input" />
+              <input type="email" name="correo" required placeholder="Correo electrónico *" class="form-input" />
             </div>
+            <label class="flex items-start gap-2 text-xs text-slate-500 cursor-pointer mb-3">
+              <input type="checkbox" name="consentimiento" required checked class="mt-0.5 accent-kiel-blue shrink-0" />
+              <span>Acepto la <a href="/tratamiento-datos" target="_blank" class="text-kiel-blue underline underline-offset-2 hover:text-kiel-blue-dark">Política de Tratamiento de Datos Personales</a> de Kiel.</span>
+            </label>
             <div class="flex gap-2">
               <button type="button" id="btn-back-3"
                 class="flex-1 border border-slate-200 text-slate-500 hover:bg-slate-100 font-medium py-3 rounded-lg transition-colors text-sm">
@@ -541,7 +545,7 @@ const WA_COTIZAR = `https://wa.me/573000000000?text=${encodeURIComponent('Hola, 
           {
             icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/></svg>`,
             titulo: 'Mobiliario institucional y colectivo',
-            texto: 'Tándems, mobiliario para cafetería, sofás, sillas para auditorios, mobiliario para espacios públicos, exteriores y home office. Proyectos a gran escala en Cali, Palmira, Bogotá y todo el país.',
+            texto: 'Tándems, mobiliario para cafetería, sofás, sillas para auditorios, zonas coworking, mobiliario para espacios públicos, exteriores y home office. Proyectos a gran escala en Cali, Palmira, Bogotá y todo el país.',
           },
           {
             icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg>`,
@@ -622,7 +626,6 @@ const WA_COTIZAR = `https://wa.me/573000000000?text=${encodeURIComponent('Hola, 
   const btnNext2       = document.getElementById('btn-next-2');
   const btnBack3       = document.getElementById('btn-back-3');
   const submitBtn      = document.getElementById('submit-btn');
-  const successMsg     = document.getElementById('form-success');
   const errorMsg       = document.getElementById('form-error');
 
   const stepEls = { 1: document.getElementById('step-1'), 2: document.getElementById('step-2'), 3: document.getElementById('step-3') };
@@ -656,14 +659,24 @@ const WA_COTIZAR = `https://wa.me/573000000000?text=${encodeURIComponent('Hola, 
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const nombre   = form.querySelector('[name="nombre"]')?.value.trim();
-    const empresa  = form.querySelector('[name="empresa"]')?.value.trim();
-    const telefono = form.querySelector('[name="telefono"]')?.value.trim();
-    if (!nombre || !empresa || !telefono) { form.querySelector('[name="nombre"]')?.reportValidity(); return; }
+    const nombre         = form.querySelector('[name="nombre"]')?.value.trim();
+    const empresa        = form.querySelector('[name="empresa"]')?.value.trim();
+    const telefono       = form.querySelector('[name="telefono"]')?.value.trim();
+    const correo         = form.querySelector('[name="correo"]')?.value.trim();
+    const consentimiento = form.querySelector('[name="consentimiento"]')?.checked;
+    if (!nombre || !empresa || !telefono || !correo || !consentimiento) {
+      if (!nombre)         form.querySelector('[name="nombre"]')?.reportValidity();
+      else if (!empresa)   form.querySelector('[name="empresa"]')?.reportValidity();
+      else if (!telefono)  form.querySelector('[name="telefono"]')?.reportValidity();
+      else if (!correo)    form.querySelector('[name="correo"]')?.reportValidity();
+      else                 form.querySelector('[name="consentimiento"]')?.reportValidity();
+      return;
+    }
 
-    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Enviando...'; }
-    successMsg?.classList.add('hidden');
-    errorMsg?.classList.add('hidden');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<svg class="animate-spin w-4 h-4 mr-2 inline" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg>Enviando...';
+    }
 
     const payload = {
       fecha:       new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' }),
@@ -678,15 +691,10 @@ const WA_COTIZAR = `https://wa.me/573000000000?text=${encodeURIComponent('Hola, 
       const url = new URL(APPS_SCRIPT_URL);
       Object.entries(payload).forEach(([k, v]) => url.searchParams.set(k, String(v)));
       await fetch(url.toString(), { mode: 'no-cors' });
-      form.reset();
-      chips.forEach(b => b.classList.remove('selected'));
-      if (necesidadInput) necesidadInput.value = '';
-      if (btnNext1) btnNext1.disabled = true;
-      Object.values(stepEls).forEach(el => el?.classList.add('hidden'));
-      successMsg?.classList.remove('hidden');
+      sessionStorage.setItem('kiel_lead', JSON.stringify(payload));
+      window.location.href = '/gracias';
     } catch {
       errorMsg?.classList.remove('hidden');
-    } finally {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Quiero que me contacten'; }
     }
   });

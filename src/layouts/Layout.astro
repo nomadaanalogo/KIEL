@@ -14,7 +14,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 
 const {
   title,
-  description = 'Kiel — Fabricante de mobiliario corporativo, educativo e institucional en Cali y Palmira, Colombia. Diseño, producción e instalación de espacios integrales.',
+  description = 'Kiel — Fabricante de mobiliario corporativo, educativo, institucional y zonas coworking en Cali y Palmira, Colombia. Diseño, producción e instalación de espacios integrales.',
   cotizarHref = '/#cotizar',
   ogImage = '/og-kiel.jpg',
   noindex = false,
@@ -68,13 +68,16 @@ const navLinks = [
 <!doctype html>
 <html lang="es">
   <head>
+    <!-- Google Tag Manager -->
+    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-55828GHN');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO básico -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="mobiliario corporativo Cali, mobiliario para oficinas Cali, mobiliario educativo Colombia, carpintería arquitectónica Cali, fabricante mobiliario Palmira, adecuación de oficinas, diseño de espacios corporativos, muebles de oficina Colombia, mobiliario institucional, escritorios para oficinas, sillas para oficinas, divisiones modulares, sala de juntas, puestos de trabajo, mobiliario para colegios" />
+    <meta name="keywords" content="mobiliario corporativo Cali, mobiliario para oficinas Cali, mobiliario educativo Colombia, carpintería arquitectónica Cali, fabricante mobiliario Palmira, adecuación de oficinas, diseño de espacios corporativos, muebles de oficina Colombia, mobiliario institucional, escritorios para oficinas, sillas para oficinas, divisiones modulares, sala de juntas, puestos de trabajo, mobiliario para colegios, zonas coworking, mobiliario coworking, espacios coworking Colombia, mobiliario cafetería, zonas comunes" />
     <meta name="author" content="Kiel" />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
     <link rel="canonical" href={canonicalURL} />
@@ -149,6 +152,9 @@ const navLinks = [
   </head>
 
   <body class="font-sans text-slate-900 bg-white">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-55828GHN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
     <header class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
@@ -328,10 +334,37 @@ const navLinks = [
 
         <div class="border-t border-slate-800 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-slate-600 text-xs">
           <span>© {new Date().getFullYear()} Kiel. Todos los derechos reservados.</span>
-          <span class="text-center sm:text-right">Kiel — 28 años diseñando, fabricando y construyendo espacios.</span>
+          <div class="flex gap-4 text-slate-500">
+            <a href="/politica-privacidad" class="hover:text-slate-300 transition-colors">Política de Privacidad</a>
+            <a href="/tratamiento-datos" class="hover:text-slate-300 transition-colors">Tratamiento de Datos</a>
+          </div>
         </div>
       </div>
     </footer>
+
+    <!-- Banner de cookies -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-slate-900 border-t border-slate-700 px-4 py-4 hidden">
+      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center gap-3 justify-between">
+        <p class="text-slate-300 text-sm leading-relaxed text-center sm:text-left">
+          Usamos cookies para mejorar tu experiencia y analizar el tráfico del sitio.
+          <a href="/politica-privacidad" class="text-kiel-blue underline underline-offset-2 hover:text-white ml-1">Más información</a>
+        </p>
+        <button id="cookie-accept" class="shrink-0 bg-kiel-orange hover:bg-kiel-orange-dark text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">
+          Aceptar
+        </button>
+      </div>
+    </div>
+    <script is:inline>
+      (function() {
+        if (!localStorage.getItem('kiel_cookies')) {
+          document.getElementById('cookie-banner').classList.remove('hidden');
+        }
+        document.getElementById('cookie-accept')?.addEventListener('click', function() {
+          localStorage.setItem('kiel_cookies', '1');
+          document.getElementById('cookie-banner').classList.add('hidden');
+        });
+      })();
+    </script>
 
     <!-- WhatsApp flotante -->
     <a
