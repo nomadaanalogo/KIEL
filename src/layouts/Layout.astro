@@ -14,16 +14,16 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 
 const {
   title,
-  description = 'Kiel, fabricante colombiano de mobiliario corporativo, educativo e institucional. Espacios en Cali, Palmira y todo Colombia.',
+  description = 'Personalizado a tu medida. Cotiza gratis hoy. Empresas, instituciones, colegios, cafeterías en todo Colombia.',
   cotizarHref = '/#cotizar',
   ogImage = '/og-kiel.jpg',
   noindex = false,
 } = Astro.props;
 
-const SITE_URL = 'https://www.kiel.com.co';
+const SITE_URL = 'https://kiel.com.co';
 const canonicalURL = new URL(currentPath, SITE_URL).href;
 const ogImageURL = new URL(ogImage, SITE_URL).href;
-const fullTitle = currentPath === '/' ? 'Kiel | Fábrica de Mobiliario Empresarial y Educativo' : `${title} | Kiel`;
+const fullTitle = currentPath === '/' ? 'Kiel | Fabricamos mobiliario para todo tipo de negocio' : `${title} | Kiel`;
 
 const WA_NUMBER = '573174396729';
 const WA_MENSAJE = encodeURIComponent('Hola, quiero cotizar un proyecto con Kiel.');
