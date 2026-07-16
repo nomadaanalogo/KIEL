@@ -349,9 +349,14 @@ const navLinks = [
           Usamos cookies para mejorar tu experiencia y analizar el tráfico del sitio.
           <a href="/politica-privacidad" class="text-kiel-blue underline underline-offset-2 hover:text-white ml-1">Más información</a>
         </p>
-        <button id="cookie-accept" class="shrink-0 bg-kiel-orange hover:bg-kiel-orange-dark text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">
-          Aceptar
-        </button>
+        <div class="flex gap-2 shrink-0">
+          <button id="cookie-decline" class="bg-slate-700 hover:bg-slate-600 text-slate-300 text-sm font-medium px-5 py-2 rounded-lg transition-colors">
+            Declinar
+          </button>
+          <button id="cookie-accept" class="bg-kiel-orange hover:bg-kiel-orange-dark text-white text-sm font-semibold px-6 py-2 rounded-lg transition-colors">
+            Aceptar
+          </button>
+        </div>
       </div>
     </div>
     <script is:inline>
@@ -359,9 +364,16 @@ const navLinks = [
         if (!localStorage.getItem('kiel_cookies')) {
           document.getElementById('cookie-banner').classList.remove('hidden');
         }
-        document.getElementById('cookie-accept')?.addEventListener('click', function() {
-          localStorage.setItem('kiel_cookies', '1');
+        function hideBanner() {
           document.getElementById('cookie-banner').classList.add('hidden');
+        }
+        document.getElementById('cookie-accept')?.addEventListener('click', function() {
+          localStorage.setItem('kiel_cookies', 'accepted');
+          hideBanner();
+        });
+        document.getElementById('cookie-decline')?.addEventListener('click', function() {
+          localStorage.setItem('kiel_cookies', 'declined');
+          hideBanner();
         });
       })();
     </script>
