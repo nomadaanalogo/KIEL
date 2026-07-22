@@ -31,6 +31,46 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.kiel.com.co/mobiliario-oficina</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.kiel.com.co/escritorios-gerenciales</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kiel.com.co/sillas-giratorias-ergonomicas-oficina</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kiel.com.co/divisiones-para-oficina-modulares-colombia</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kiel.com.co/mobiliario-para-cafeterias-y-espacios-comunes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kiel.com.co/gondolas-o-estantes-para-supermercados</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kiel.com.co/pupitres-y-muebles-de-almacenamiento-para-colegios</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.kiel.com.co/auditorios-teatros-y-estadios-fabricantes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kiel.com.co/politica-privacidad</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
