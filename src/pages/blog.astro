@@ -7,8 +7,7 @@ const posts = [
     categoria: 'Espacios corporativos',
     titulo: 'Mobiliario para oficina: diseñado y fabricado a su medida',
     resumen: 'No vendemos catálogo. Diseñamos y producimos cada pieza según las dimensiones, el uso y la identidad visual de su empresa. Puestos de trabajo, escritorios, salas de juntas y almacenamiento.',
-    fecha: 'Julio 1, 2025',
-    tiempo: '4 min de lectura',
+    fecha: '4 min de lectura',
     imagen: '/hero/oficina1.webp',
     color: '#0065AD',
   },
@@ -17,8 +16,7 @@ const posts = [
     categoria: 'Mobiliario corporativo',
     titulo: 'Escritorios gerenciales modernos fabricados a medida',
     resumen: 'El escritorio de un directivo comunica autoridad, orden y el nivel de detalle que su empresa le da a cada espacio. Fabricamos en MDF o aglomerado, con acabados en melamina, laca o chapa natural.',
-    fecha: 'Julio 5, 2025',
-    tiempo: '3 min de lectura',
+    fecha: '3 min de lectura',
     imagen: '/nosotros/escritorio.webp',
     color: '#0065AD',
   },
@@ -27,8 +25,7 @@ const posts = [
     categoria: 'Mobiliario de oficina',
     titulo: 'Sillas giratorias ergonómicas para oficina: qué considerar antes de comprar',
     resumen: 'Una silla de oficina es donde cada colaborador pasa entre 6 y 9 horas al día. Le ayudamos a elegir el modelo correcto según el perfil de uso, el presupuesto y la estética del espacio.',
-    fecha: 'Julio 8, 2025',
-    tiempo: '4 min de lectura',
+    fecha: '4 min de lectura',
     imagen: '/hero/sillas.webp',
     color: '#0065AD',
   },
@@ -37,8 +34,7 @@ const posts = [
     categoria: 'Adecuación de espacios',
     titulo: 'Divisiones para oficina modulares en Colombia',
     resumen: 'Separamos espacios de trabajo sin obras civiles: tablero, vidrio o sistemas mixtos. Una división bien diseñada define zonas, reduce el ruido y le da identidad al espacio.',
-    fecha: 'Julio 10, 2025',
-    tiempo: '3 min de lectura',
+    fecha: '3 min de lectura',
     imagen: '/servicios/corporativo-openspace.webp',
     color: '#0065AD',
   },
@@ -47,8 +43,7 @@ const posts = [
     categoria: 'Espacios comunes',
     titulo: 'Mobiliario para cafeterías y comedores corporativos',
     resumen: 'Los espacios de descanso son cada vez más estratégicos. Fabricamos mesas, sillas, mostradores y barras para cafeterías corporativas y comedores institucionales de cualquier escala.',
-    fecha: 'Julio 12, 2025',
-    tiempo: '3 min de lectura',
+    fecha: '3 min de lectura',
     imagen: '/casos/cafeteria.webp',
     color: '#059669',
   },
@@ -57,8 +52,7 @@ const posts = [
     categoria: 'Almacenamiento y exhibición',
     titulo: 'Góndolas y estantes para supermercados en Colombia',
     resumen: 'La estantería define el flujo de compra y la exhibición del producto. Fabricamos góndolas, estantes y muebles de exhibición a las medidas exactas de su espacio comercial.',
-    fecha: 'Julio 15, 2025',
-    tiempo: '3 min de lectura',
+    fecha: '3 min de lectura',
     imagen: '/casos/estanteria-caso.webp',
     color: '#92400E',
   },
@@ -67,8 +61,7 @@ const posts = [
     categoria: 'Mobiliario educativo',
     titulo: 'Fábrica de pupitres escolares y mobiliario para colegios',
     resumen: 'Somos fabricantes de pupitres escolares modernos, mesas para biblioteca y mobiliario educativo completo para colegios, universidades e instituciones educativas en Colombia.',
-    fecha: 'Julio 18, 2025',
-    tiempo: '4 min de lectura',
+    fecha: '4 min de lectura',
     imagen: '/hero/colegio3.webp',
     color: '#059669',
   },
@@ -77,8 +70,7 @@ const posts = [
     categoria: 'Auditorios y eventos',
     titulo: 'Sillas para auditorio y teatro en Colombia',
     resumen: 'Equipamos auditorios, teatros, iglesias y salas de capacitación con sillas abatibles, fijas y sistemas de gradería. También fabricamos tarimas, atriles y mesas de ponentes.',
-    fecha: 'Julio 20, 2025',
-    tiempo: '3 min de lectura',
+    fecha: '3 min de lectura',
     imagen: '/servicios/educativo-sala-universitaria.webp',
     color: '#7C3AED',
   },
@@ -127,8 +119,6 @@ const posts = [
             <p class="text-slate-500 text-sm leading-relaxed mb-6">{posts[0].resumen}</p>
             <div class="flex items-center gap-4 text-xs text-slate-400">
               <span>{posts[0].fecha}</span>
-              <span>·</span>
-              <span>{posts[0].tiempo}</span>
             </div>
           </div>
         </div>
@@ -151,18 +141,12 @@ const posts = [
               <p class="text-slate-500 text-sm leading-relaxed mb-5 line-clamp-2">{post.resumen}</p>
               <div class="flex items-center gap-4 text-xs text-slate-400">
                 <span>{post.fecha}</span>
-                <span>·</span>
-                <span>{post.tiempo}</span>
               </div>
             </div>
           </a>
         ))}
       </div>
 
-      <!-- Próximamente -->
-      <div class="mt-12 text-center py-14 rounded-2xl border border-dashed border-slate-200">
-        <p class="text-slate-400 text-sm">Más artículos próximamente</p>
-      </div>
 
     </div>
   </section>
