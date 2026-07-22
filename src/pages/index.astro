@@ -592,6 +592,93 @@ const WA_COTIZAR = `https://wa.me/573174396729?text=${encodeURIComponent('Hola, 
     });
   </script>
 
+  <!-- ═══════════════════════ FAQ ═══════════════════════ -->
+  <section class="bg-slate-50 py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto px-6 sm:px-10">
+
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-4 mb-5">
+          <div class="w-8 h-px bg-kiel-orange"></div>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-kiel-orange">Preguntas frecuentes</p>
+          <div class="w-8 h-px bg-kiel-orange"></div>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl text-slate-900">
+          Todo lo que necesita saber antes de cotizar
+        </h2>
+      </div>
+
+      <div id="faq-list" class="space-y-2">
+        {[
+          {
+            q: '¿En qué ciudades trabajan?',
+            a: 'Fabricamos en nuestra planta de Palmira, Valle del Cauca, e instalamos en Cali, Palmira, Bogotá y en todo Colombia. Atendemos proyectos en cualquier ciudad del país.'
+          },
+          {
+            q: '¿Fabrican a medida o venden productos de catálogo?',
+            a: 'Todo lo que hacemos es a medida. No vendemos productos estándar: diseñamos y fabricamos cada pieza según las dimensiones exactas, el uso y la identidad visual de su espacio. El resultado es un mobiliario que encaja perfecto y se ve como parte del lugar.'
+          },
+          {
+            q: '¿Cuánto tiempo tarda la fabricación e instalación?',
+            a: 'Para proyectos medianos el tiempo habitual es entre 2 y 4 semanas desde la aprobación del diseño. Proyectos grandes o con mayor complejidad pueden tomar entre 4 y 8 semanas. El plazo exacto se define en la propuesta técnica.'
+          },
+          {
+            q: '¿Qué es la carpintería arquitectónica?',
+            a: 'Es la fabricación de elementos en madera integrados fijos a la arquitectura del espacio: closets empotrados, cocinas, mesones, bibliotecas, revestimientos de paredes y fachadas en madera. A diferencia del mobiliario libre, la carpintería arquitectónica hace parte permanente de la construcción y requiere mayor precisión en diseño y fabricación.'
+          },
+          {
+            q: '¿La instalación está incluida en el precio?',
+            a: 'Sí. Kiel produce e instala. Nuestro equipo técnico hace la instalación en el lugar para garantizar que el resultado sea exactamente el que se aprobó en el diseño. No es necesario contratar instaladores externos.'
+          },
+          {
+            q: '¿Trabajan con personas naturales o solo con empresas?',
+            a: 'Principalmente trabajamos con empresas, constructoras, colegios, universidades e instituciones. Para proyectos residenciales de gran escala — conjuntos, urbanizaciones, edificios — también atendemos. No hacemos proyectos pequeños de una sola habitación.'
+          },
+          {
+            q: '¿Tienen sala de exhibición o showroom?',
+            a: 'Nuestra planta de producción está en Palmira, Valle del Cauca. Puede visitarla con cita previa para conocer los materiales, los acabados disponibles y proyectos en proceso de fabricación.'
+          },
+          {
+            q: '¿Cómo cotizo un proyecto con Kiel?',
+            a: 'Por WhatsApp, teléfono o el formulario de esta página. Un asesor lo contacta, coordinamos una visita al espacio si el proyecto lo requiere, y le enviamos una propuesta técnica y económica sin costo. El proceso desde el primer contacto hasta la propuesta generalmente toma entre 2 y 5 días hábiles.'
+          },
+        ].map((item) => (
+          <div class="faq-item bg-white rounded-xl border border-slate-100 overflow-hidden">
+            <button
+              class="faq-btn w-full text-left px-6 py-5 flex items-center justify-between gap-6 hover:bg-slate-50 transition-colors"
+              aria-expanded="false"
+            >
+              <span class="font-semibold text-slate-800 text-sm sm:text-base leading-snug">{item.q}</span>
+              <span class="faq-icon shrink-0 w-7 h-7 rounded-full bg-kiel-orange/10 text-kiel-orange flex items-center justify-center text-xl leading-none transition-transform duration-300">+</span>
+            </button>
+            <div class="faq-body overflow-hidden" style="max-height:0;transition:max-height 0.3s ease">
+              <p class="text-slate-600 text-sm leading-relaxed px-6 pb-5">{item.a}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <script is:inline>
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const body = item.querySelector('.faq-body');
+        const icon = item.querySelector('.faq-icon');
+        const isOpen = body.style.maxHeight !== '0px' && body.style.maxHeight !== '';
+        document.querySelectorAll('.faq-body').forEach(b => { b.style.maxHeight = '0px'; });
+        document.querySelectorAll('.faq-icon').forEach(ic => { ic.textContent = '+'; });
+        document.querySelectorAll('.faq-btn').forEach(b => b.setAttribute('aria-expanded','false'));
+        if (!isOpen) {
+          body.style.maxHeight = body.scrollHeight + 'px';
+          icon.textContent = '×';
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+
   <!-- ═══════════════════════ CTA FINAL ═══════════════════════ -->
   <section class="bg-kiel-blue py-24 sm:py-28">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
